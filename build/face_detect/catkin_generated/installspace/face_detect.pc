@@ -1,0 +1,8 @@
+prefix=/home/corvin/YoYoRobot/YoYoRobot/install
+
+Name: face_detect
+Description: Description of face_detect
+Version: 0.0.0
+Cflags: -I/home/corvin/YoYoRobot/YoYoRobot/install/include
+Libs: -L/home/corvin/YoYoRobot/YoYoRobot/install/lib 
+Requires: message_runtime
