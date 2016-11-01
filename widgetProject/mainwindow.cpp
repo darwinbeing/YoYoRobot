@@ -3,13 +3,12 @@
 #include <QLabel>
 #include <QMovie>
 #include <QTimer>
+#include <QString>
 
 
-
-
-//QDateTime n2;
-//QDateTime now;
 int flag = 0;
+QString normalPath = "/home/corvin/Pictures/main/normal.gif";
+QString shyPath = "/home/corvin/Pictures/main/shy.gif";
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,11 +25,9 @@ MainWindow::MainWindow(QWidget *parent) :
     this->move(0,0);
 
 
-    QMovie *normalMovie = new QMovie("/home/corvin/Pictures/faceGIF/main/normal.gif");
+    QMovie *normalMovie = new QMovie(normalPath);
     ui->label->setMovie(normalMovie);
     normalMovie->start();
-
-
 }
 
 //获取鼠标点定位窗体位置
@@ -39,7 +36,7 @@ void MainWindow::mousePressEvent(QMouseEvent *e)
     //last = e->globalPos();
 //    if(0 ==flag)
 //    {
-//        QMovie *shyMovie = new QMovie("/home/corvin/Pictures/faceGIF/main/shy.gif");
+//        QMovie *shyMovie = new QMovie();
 //        ui->label->setMovie(shyMovie);
 //        shyMovie->start();
 //    }
@@ -67,7 +64,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *e)
     //normalMovie->stop(); //pause old movie
     if(1 ==flag)
     {
-        QMovie *shyMovie = new QMovie("/home/corvin/Pictures/faceGIF/main/normal.gif");
+        QMovie *shyMovie = new QMovie(normalPath);
         ui->label->setMovie(shyMovie);
         shyMovie->start();
          flag = 0;
@@ -75,7 +72,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *e)
     else
     {
         flag = 1;
-        QMovie *shyMovie = new QMovie("/home/corvin/Pictures/faceGIF/main/shy.gif");
+        QMovie *shyMovie = new QMovie(shyPath);
         ui->label->setMovie(shyMovie);
         shyMovie->start();
     }
