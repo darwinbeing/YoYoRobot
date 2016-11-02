@@ -1,0 +1,2 @@
+face_detect:xf_voice
+-DCATKIN_DEVEL_PREFIX=/home/corvin/YoYoRobot/ROSCodeProject/devel -DCMAKE_INSTALL_PREFIX=/home/corvin/YoYoRobot/ROSCodeProject/install -G Unix Makefiles

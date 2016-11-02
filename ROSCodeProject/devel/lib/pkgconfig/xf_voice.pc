@@ -1,0 +1,8 @@
+prefix=/home/corvin/YoYoRobot/ROSCodeProject/devel
+
+Name: xf_voice
+Description: Description of xf_voice
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/corvin/YoYoRobot/ROSCodeProject/devel/lib 
+Requires: 

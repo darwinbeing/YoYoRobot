@@ -1,2 +1,0 @@
-face_detect
--DCATKIN_DEVEL_PREFIX=/home/corvin/YoYoRobot/YoYoRobot/devel -DCMAKE_INSTALL_PREFIX=/home/corvin/YoYoRobot/YoYoRobot/install -G Unix Makefiles
