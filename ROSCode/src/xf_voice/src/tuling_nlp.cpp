@@ -3,8 +3,9 @@
  * author:corvin
  *
 */
-#include "ros/ros.h"
-#include "std_msgs/String.h"
+
+#include <ros/ros.h>
+#include <std_msgs/String.h>
 #include <sstream>
 #include <jsoncpp/json/json.h>
 #include <curl/curl.h>
@@ -21,7 +22,9 @@ string result;
 int writer(char *data, size_t size, size_t nmemb, string *writerData)
 {
      if (writerData == NULL)
+     {
          return 0;
+     }
      int len = size*nmemb;
      writerData->append(data, len);
 
@@ -45,7 +48,6 @@ int parseJsonResonse(string input)
     result = text.asString();
     cout << "response code:" << code << endl;
     cout << "response text:" << result <<endl;
-
 }
 
 
@@ -135,6 +137,9 @@ void nlpCallback(const std_msgs::String::ConstPtr& msg)
     HttpPostRequest(msg->data);
 }
 
+/**
+ * main function
+ */
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "tuling_nlp");
@@ -142,7 +147,6 @@ int main(int argc, char **argv)
 
     ros::Subscriber sub = ndHandle.subscribe("/voice/tuling_nlp", 10, nlpCallback);
     ros::Publisher pub = ndHandle.advertise<std_msgs::String>("/voice/xf_tts", 10);
-    ros::Publisher pub_nlp = ndHandle.advertise<std_msgs::String>("/voice/tuling_nlp", 10);
     ros::Rate loop_rate(10);
 
     while(ros::ok())
@@ -152,8 +156,6 @@ int main(int argc, char **argv)
            std_msgs::String msg;
            msg.data = result;
            pub.publish(msg);
-           //sleep(10);
-           //pub_nlp.publish(msg);
            flag = 0;
         }
         ros::spinOnce();

@@ -145,7 +145,7 @@ int xf_tts(const char* text, const char *filename)
 {
     int ret = MSP_SUCCESS;
     const char* login_params = "appid = 57207923, work_dir = ."; //登录参数,appid与msc库绑定,请勿随意改动
-    const char* session_begin_params = "voice_name = xiaoxin, text_encoding = utf8, sample_rate = 16000, speed = 70, volume = 80, pitch = 50, rdn = 2";
+    const char* session_begin_params = "voice_name = xiaoxin, text_encoding = utf8, sample_rate = 16000, speed = 70, volume = 80, pitch = 50, rdn = 0";
 
     /* 用户登录 */
     ret = MSPLogin("NULL", "NULL", login_params); //第一个参数是用户名，第二个参数是密码，第三个参数是登录参数，用户名和密码可在http://open.voicecloud.cn注册获取

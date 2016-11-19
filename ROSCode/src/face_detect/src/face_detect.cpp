@@ -8,8 +8,8 @@
 #include <std_msgs/String.h>
 #include <cstdlib>
 
-#include <face_detect/faces.h>
-#include <face_detect/facebox.h>
+#include "face_detect/faces.h"
+#include "face_detect/facebox.h"
 
 using namespace std;
 using namespace cv;
@@ -37,7 +37,7 @@ vector<Rect> detectFaces(Mat frame)
 /**
  * get image from usb_cam,this is callback function,process the image
  */
-void imageCB(const sensor_msgs::ImageConstPtr& msg) 
+void imageCB(const sensor_msgs::ImageConstPtr& msg)
 {
     cv_bridge::CvImagePtr cvPtr;
     try {
@@ -63,8 +63,8 @@ void imageCB(const sensor_msgs::ImageConstPtr& msg)
        rectangle(cvPtr->image, faces[i], CV_RGB(250, 100, 155), 2);
        //system("ekho \"你好呀\"");
        //sleep(1);
-    } 
-  
+    }
+
     frame_id++ ;
     pub.publish(faces_msg);
     if (showResult) {
