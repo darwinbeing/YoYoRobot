@@ -12,9 +12,9 @@
 #include <string>
 #include <exception>
 
+
 using namespace std;
 
-#define BUFERSIZE 1024
 
 int flag = 0;
 string result;
@@ -23,7 +23,7 @@ int writer(char *data, size_t size, size_t nmemb, string *writerData)
 {
      if (writerData == NULL)
      {
-         return 0;
+         return -1;
      }
      int len = size*nmemb;
      writerData->append(data, len);
@@ -32,6 +32,9 @@ int writer(char *data, size_t size, size_t nmemb, string *writerData)
 }
 
 
+/**
+ * parse tuling server response json string
+ */
 int parseJsonResonse(string input)
 {
     Json::Value root;
@@ -46,17 +49,17 @@ int parseJsonResonse(string input)
     const Json::Value code = root["code"];
     const Json::Value text = root["text"];
     result = text.asString();
+    flag = 1;
     cout << "response code:" << code << endl;
     cout << "response text:" << result <<endl;
+
+    return 0;
 }
 
 
 int HttpPostRequest(string input)
 {
-    char* str = (char*)malloc(BUFERSIZE);
     string buffer;
-    result = "";
-    memset(str, 0, BUFERSIZE);
 
     std::string strJson = "{";
     strJson += "\"key\" : \"175418b0747f4c50b15843fe0849067e\",";
@@ -66,8 +69,7 @@ int HttpPostRequest(string input)
     strJson += "\"";
     strJson += "}";
 
-    strcpy(str, strJson.c_str());
-    cout<< "post json string:" << str <<endl;
+    cout<< "post json string:" << strJson <<endl;
     try
     {
         CURL *pCurl = NULL;
@@ -78,18 +80,18 @@ int HttpPostRequest(string input)
         pCurl = curl_easy_init();
         if (NULL != pCurl)
         {
-            // 设置超时时间为8秒
+            //set url timeout
             curl_easy_setopt(pCurl, CURLOPT_TIMEOUT, 8);
 
             // First set the URL that is about to receive our POST.
             curl_easy_setopt(pCurl, CURLOPT_URL, "http://www.tuling123.com/openapi/api");
 
-            // 设置http发送的内容类型为JSON
+            // set curl http header
             curl_slist *plist = curl_slist_append(NULL,"Content-Type:application/json; charset=UTF-8");
             curl_easy_setopt(pCurl, CURLOPT_HTTPHEADER, plist);
 
-            // 设置要POST的JSON数据
-            curl_easy_setopt(pCurl, CURLOPT_POSTFIELDS, str);
+            // set curl post content fileds
+            curl_easy_setopt(pCurl, CURLOPT_POSTFIELDS, strJson.c_str());
 
             curl_easy_setopt(pCurl, CURLOPT_WRITEFUNCTION, writer);
             curl_easy_setopt(pCurl, CURLOPT_WRITEDATA, &buffer);
@@ -112,20 +114,17 @@ int HttpPostRequest(string input)
         printf("!!! curl exception %s.\n", ex.what());
     }
 
-    free(str);
     if(buffer.empty())
     {
         cout << "!!! ERROR The TuLing server response NULL" <<endl;
     }
     else
     {
-        flag = 1;
         parseJsonResonse(buffer);
     }
 
     return 0;
 }
-
 
 
 /**
