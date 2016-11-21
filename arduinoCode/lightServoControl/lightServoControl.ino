@@ -6,12 +6,15 @@
 */
 
 #include <ros.h>
-#include <std_msgs/UInt8.h>
+#include <std_msgs/Int32.h>
 #include <Adafruit_NeoPixel.h>
 
 ros::NodeHandle  nh;
 #define PIN         6     //The signal pin connected with Arduino    
 #define LED_COUNT   60    //the amount of the leds of your strip
+String moveTimeStr = " T500";  //move target position need 500ms
+String upDownServoStr = "#11 P";
+String leftRightSErvoStr = "#15 P";
 
 Adafruit_NeoPixel leds = Adafruit_NeoPixel(LED_COUNT, PIN, NEO_GRB + NEO_KHZ800);
 
@@ -26,42 +29,43 @@ void showWakeupLight()
   clearLEDs();
 }
 
-void servo_callback(const std_msgs::UInt8& cmd_msg)
+void servo_callback(const std_msgs::Int32& cmd_msg)
 {
   switch (cmd_msg.data)
   {
-    case 0:
+    case 0: //wave arm, greet
       Serial.println("PL0 SQ0 SM100 ONCE");
       break;
 
-    case 1:
+    case 1: //hug move
       Serial.println("PL0 SQ1 SM100 ONCE");
       break;
 
-    case 2:
+    case 2: //dance1
       Serial.println("PL0 SQ2 SM100 ONCE");
       break;
-   
-    case 3:
+
+    case 3: //dance2
       Serial.println("PL0 SQ3 SM100 ONCE");
       break;
 
-    case 4:
+    case 4: //only show wakeup light
       showWakeupLight(); //show wakeup light
-    break;
-      
-    case 5:
-       Serial.println("PL0 SQ0 SM100 ONCE");
-       showWakeupLight(); //show wakeup light
-    break;
+      break;
+
+    case 5: //wave arm and show light
+      Serial.println("PL0 SQ0 SM100 ONCE");
+      showWakeupLight(); //show wakeup light
+      break;
 
     default:
-      Serial.println("PL0"); //stop Operate
+      //Serial.println("PL0"); //stop Operate
+      moveHeadServo(cmd_msg.data);
       break;
   }
 }
 
-ros::Subscriber<std_msgs::UInt8> sub("/sensor/lightServoControl", &servo_callback );
+ros::Subscriber<std_msgs::Int32> sub("/sensor/lightServoControl", &servo_callback );
 
 void setup()
 {
@@ -78,6 +82,34 @@ void loop()
   nh.spinOnce();
   delay(1);
 }
+
+void moveHeadServo(int input)
+{
+  int pose = 0;
+  String cmdStr;
+  if ((input >= 1000) && (input <= 1180)) //up or down move ---11 pin servo control board
+  {
+    pose = getServoPose(input - 1000);
+    cmdStr = upDownServoStr + pose + moveTimeStr;
+  }
+  else if ((input >= 2000) && (input <= 2180)) //left or right move --15 pin servo control borad
+  {
+    pose = getServoPose(input - 2000);
+    cmdStr = leftRightSErvoStr + pose + moveTimeStr;
+  }
+  else
+  {
+
+  }
+  Serial.println(cmdStr);
+}
+
+int getServoPose(int degree)
+{
+  int pos = map(degree, 0, 180, 500, 2500);
+  return pos;
+}
+
 
 // Sets all LEDs to off, but DOES NOT update the display;
 // call leds.show() to actually turn them off after this.
