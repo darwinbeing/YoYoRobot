@@ -194,7 +194,6 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-#${OpenCV_LIBS}
 
 add_executable(
     face_detect
@@ -202,5 +201,7 @@ add_executable(
 )
 
 target_link_libraries(
+        face_detect	
 	${catkin_LIBRARIES}
+	${OpenCV_LIBS}
 )
