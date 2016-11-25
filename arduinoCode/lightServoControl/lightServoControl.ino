@@ -12,7 +12,7 @@
 ros::NodeHandle  nh;
 #define PIN         6     //The signal pin connected with Arduino    
 #define LED_COUNT   60    //the amount of the leds of your strip
-String moveTimeStr = " T500";  //move target position need 500ms
+String moveTimeStr = " T300";  //move target position need 300ms
 String upDownServoStr = "#11 P";
 String leftRightSErvoStr = "#15 P";
 

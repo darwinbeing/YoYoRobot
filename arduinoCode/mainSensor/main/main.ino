@@ -190,9 +190,13 @@ void pubTouchSensorData()
   {
     pose = 0;
   }
-  //publish msg to topic,when detect touch will decrease delay
-  touch_msg.data = pose;
-  pub_touch.publish(&touch_msg);
+
+  if (pose != 0)
+  {
+    //publish msg to topic,when detect touch will decrease delay
+    touch_msg.data = pose;
+    pub_touch.publish(&touch_msg);
+  }
   if (pose == 0)
   {
     delay(1000);
