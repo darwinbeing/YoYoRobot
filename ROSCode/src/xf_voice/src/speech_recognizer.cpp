@@ -163,8 +163,6 @@ int sr_init_ex(struct speech_rec * sr, const char * session_begin_params,
 	size_t param_size;
 	WAVEFORMATEX wavfmt = DEFAULT_FORMAT;
 
-    cout << "sr_init_ex() function begin ..." <<endl;
-
     int a = get_input_dev_num();
     cout << "after get input dev num ..." <<endl;
 
@@ -188,10 +186,6 @@ int sr_init_ex(struct speech_rec * sr, const char * session_begin_params,
         cout << "session begin params is null !!!!" << endl;
 		session_begin_params = DEFAULT_SESSION_PARA;
 	}
-    else
-    {
-        cout << "session_begin_param is : " << session_begin_params <<endl;
-    }
 
 	SR_MEMSET(sr, 0, sizeof(struct speech_rec));
 	sr->state = SR_STATE_INIT;
@@ -199,7 +193,6 @@ int sr_init_ex(struct speech_rec * sr, const char * session_begin_params,
 	sr->ep_stat = MSP_EP_LOOKING_FOR_SPEECH;
 	sr->rec_stat = MSP_REC_STATUS_SUCCESS;
 	sr->audio_status = MSP_AUDIO_SAMPLE_FIRST;
-    cout << "after sr pointer memset is :" << sr << endl;
 
 	param_size = strlen(session_begin_params) + 1;
 	sr->session_begin_params = (char*)SR_MALLOC(param_size);
@@ -207,10 +200,6 @@ int sr_init_ex(struct speech_rec * sr, const char * session_begin_params,
 		sr_dbg("mem alloc failed\n");
 		return -E_SR_NOMEM;
 	}
-    else
-    {
-        cout << "mem alloc sucess !" <<endl;
-    }
 	strncpy(sr->session_begin_params, session_begin_params, param_size - 1);
 
 	sr->notif = *notify;
@@ -233,7 +222,6 @@ int sr_init_ex(struct speech_rec * sr, const char * session_begin_params,
 		}
 	}
 
-    cout << "sr_init_ex function end..." << endl;
 	return 0;
 
 fail:
