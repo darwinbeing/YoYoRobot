@@ -2,17 +2,17 @@
    Motor driver definitions
 *************************************************************/
 //motor pin define
-const int A_IN1  = 39;
-const int A_IN2  = 40;
-const int A_PWM  = 8;    //A wheel pwm pin
+const int A_IN1  = 23;
+const int A_IN2  = 25;
+const int A_PWM  = 11;    //A wheel pwm pin
 
-const int B_IN1  = 52;
-const int B_IN2  = 53;
-const int B_PWM  = 7;   //B wheel pwm pin
+const int B_IN1  = 27;
+const int B_IN2  = 29;
+const int B_PWM  = 10;   //B wheel pwm pin
 
-const int C_IN1  = 26;
-const int C_IN2  = 27;
-const int C_PWM  = 6;    //C wheel pwm pin
+const int C_IN1  = 31;
+const int C_IN2  = 33;
+const int C_PWM  = 9;    //C wheel pwm pin
 
 boolean direcA = false;
 boolean direcB = false;

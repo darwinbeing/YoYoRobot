@@ -1,0 +1,69 @@
+# For a direct USB cable connection, the port name is typically
+# /dev/ttyACM# where is # is a number such as 0, 1, 2, etc
+# For a wireless connection like XBee, the port is typically
+# /dev/ttyUSB# where # is a number such as 0, 1, 2, etc.
+
+port: /dev/ttyACM1
+baud: 57600
+timeout: 0.1
+
+rate: 50
+sensorstate_rate: 10
+
+use_base_controller: True
+base_controller_rate: 10
+
+# For a robot that uses base_footprint, change base_frame to base_footprint
+base_frame: base_footprint
+
+# === Robot drivetrain parameters
+wheel_diameter: 0.058
+wheel_track: 0.205    # L value
+encoder_resolution: 16 #ASLong 555B motors
+gear_reduction: 56
+motors_reversed: True
+linear_scale_correction: 0.998
+angular_scale_correction: 0.9872
+
+# === PID parameters
+accel_limit: 1.0
+
+AWheel_Kp: 18
+AWheel_Kd: 32
+AWheel_Ki: 0
+AWheel_Ko: 50
+
+BWheel_Kp: 18
+BWheel_Kd: 32
+BWheel_Ki: 0
+BWheel_Ko: 50
+
+CWheel_Kp: 18
+CWheel_Kd: 32
+CWheel_Ki: 0
+CWheel_Ko: 50
+
+# === Sensor definitions.  Examples only - edit for your robot.
+#     Sensor type can be one of the follow (case sensitive!):
+#	  * Ping
+#	  * GP2D12
+#	  * Analog
+#	  * Digital
+#	  * PololuMotorCurrent
+#	  * PhidgetsVoltage
+#	  * PhidgetsCurrent (20 Amp, DC)
+
+
+
+sensors: {
+  #motor_current_left:   {pin: 0, type: PololuMotorCurrent, rate: 5},
+  #motor_current_right:  {pin: 1, type: PololuMotorCurrent, rate: 5},
+  antiDropIR_front_center: {pin: 41, type: Digital, rate: 5, direction: input},
+  antiDropIR_left_center: {pin: 42, type: Digital, rate: 5, direction: input},
+  antiDropIR_right_center: {pin: 43, type: Digital, rate: 5, direction: input},
+  antiHitIR_front_center: {pin: 6, type: IR2Y0A02, rate: 5, direction: input},
+  antiHitIR_left_center: {pin: 7, type: IR2Y0A02, rate: 5, direction: input},
+  antiHitIR_right_center: {pin: 8, type: IR2Y0A02, rate: 5, direction: input},
+  #sonar_front_center:   {pin: 5, type: Ping, rate: 5},
+  arduino_led:          {pin: 13, type: Digital, rate: 1, direction: output}
+}

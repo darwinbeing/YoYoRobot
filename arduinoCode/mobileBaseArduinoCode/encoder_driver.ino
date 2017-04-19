@@ -12,8 +12,8 @@ void initEncoders()
 {
   pinMode(ENC_A_PIN_A, INPUT);
   pinMode(ENC_A_PIN_B, INPUT);
-  attachInterrupt(0, encoderA_ISR, CHANGE);
-  attachInterrupt(1, encoderA_ISR, CHANGE);
+  attachInterrupt(4, encoderA_ISR, CHANGE);
+  attachInterrupt(5, encoderA_ISR, CHANGE);
 
   pinMode(ENC_B_PIN_A, INPUT);
   pinMode(ENC_B_PIN_B, INPUT);
@@ -22,8 +22,8 @@ void initEncoders()
 
   pinMode(ENC_C_PIN_A, INPUT);
   pinMode(ENC_C_PIN_B, INPUT);
-  attachInterrupt(4, encoderC_ISR, CHANGE);
-  attachInterrupt(5, encoderC_ISR, CHANGE);
+  attachInterrupt(0, encoderC_ISR, CHANGE);
+  attachInterrupt(1, encoderC_ISR, CHANGE);
 }
 
 /* Interrupt routine for A encoder, taking care of actual counting */
