@@ -71,15 +71,16 @@ void setMotorSpeed(int wheel, int spd)
     if (spd >= 0) 
     {
       direcA = FORWARDS;
-      digitalWrite(A_IN1, HIGH);
-      digitalWrite(A_IN2, LOW);
+      digitalWrite(A_IN1, LOW);
+      digitalWrite(A_IN2, HIGH);
+      
       analogWrite(A_PWM, spd);
     }
     else if (spd < 0) 
     {
       direcA = BACKWARDS;
-      digitalWrite(A_IN1, LOW);
-      digitalWrite(A_IN2, HIGH);
+      digitalWrite(A_IN1, HIGH);
+      digitalWrite(A_IN2, LOW);
       analogWrite(A_PWM, -spd);
     }
   }
@@ -88,15 +89,15 @@ void setMotorSpeed(int wheel, int spd)
     if (spd >= 0) 
     {
       direcB = FORWARDS;
-      digitalWrite(B_IN1, HIGH);
-      digitalWrite(B_IN2, LOW);
+      digitalWrite(B_IN1, LOW);
+      digitalWrite(B_IN2, HIGH);
       analogWrite(B_PWM, spd);
     }
     else if (spd < 0) 
     {
       direcB = BACKWARDS;
-      digitalWrite(B_IN1, LOW);
-      digitalWrite(B_IN2, HIGH);
+      digitalWrite(B_IN1, HIGH);
+      digitalWrite(B_IN2, LOW);
       analogWrite(B_PWM, -spd);
     }
   }
@@ -105,15 +106,15 @@ void setMotorSpeed(int wheel, int spd)
     if (spd >= 0) 
     {
       direcC = FORWARDS;
-      digitalWrite(C_IN1, HIGH);
-      digitalWrite(C_IN2, LOW);
+      digitalWrite(C_IN1, LOW);
+      digitalWrite(C_IN2, HIGH);
       analogWrite(C_PWM, spd);
     }
     else if (spd < 0) 
     {
       direcC = BACKWARDS;
-      digitalWrite(C_IN1, LOW);
-      digitalWrite(C_IN2, HIGH);
+      digitalWrite(C_IN1, HIGH);
+      digitalWrite(C_IN2, LOW);
       analogWrite(C_PWM, -spd);
     }
   }

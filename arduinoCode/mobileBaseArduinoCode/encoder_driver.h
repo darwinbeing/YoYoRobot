@@ -4,16 +4,16 @@
 
 //below can be changed, but should be PORTD pins;
 //A wheel encode pin
-#define ENC_A_PIN_A  19   //pin 19 -- interrupt 4
-#define ENC_A_PIN_B  18   //pin 18 -- interrupt 5
+#define ENC_A_PIN_A  2   //pin 2 -- interrupt 0
+#define ENC_A_PIN_B  3   //pin 3 -- interrupt 1
 
 //B wheel encode pin
 #define ENC_B_PIN_A  21  //pin 21 -- interrupt 2
 #define ENC_B_PIN_B  20  //pin 20 -- interrupt 3
 
 //C wheel encode pin
-#define ENC_C_PIN_A  2   //pin 2 -- interrupt 0
-#define ENC_C_PIN_B  3   //pin 3 -- interrupt 1
+#define ENC_C_PIN_A  19   //pin 19 -- interrupt 4
+#define ENC_C_PIN_B  18   //pin 18 -- interrupt 5
 
 long readEncoder(int i);
 void resetEncoder(int i);
