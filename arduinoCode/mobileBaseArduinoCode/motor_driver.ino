@@ -14,9 +14,9 @@ const int C_IN1  = 31;
 const int C_IN2  = 33;
 const int C_PWM  = 9;    //C wheel pwm pin
 
-boolean direcA = false;
-boolean direcB = false;
-boolean direcC = false;
+static boolean direcA = FORWARDS;
+static boolean direcB = FORWARDS;
+static boolean direcC = FORWARDS;
 
 /*
  * get wheel run direction
