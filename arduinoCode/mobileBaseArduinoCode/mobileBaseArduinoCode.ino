@@ -60,13 +60,13 @@ long arg2 = 0;
 long arg3 = 0;
 
 /* Clear the current command parameters */
-void resetCommand() 
+void resetCommand()
 {
   cmd = NULL;
   memset(argv1, 0, sizeof(argv1));
   memset(argv2, 0, sizeof(argv2));
   memset(argv3, 0, sizeof(argv3));
-  
+
   arg1  = 0;
   arg2  = 0;
   arg3  = 0;
@@ -75,10 +75,10 @@ void resetCommand()
 }
 
 /* Run a command.  Commands are defined in commands.h */
-int runCommand() 
+int runCommand()
 {
   int i   = 0;
-  char *p = argv1;
+  char *p = argv1; //p pointer for update pid parameter
   char *str;
   int pid_args[12];
 
@@ -86,25 +86,25 @@ int runCommand()
   arg2 = atoi(argv2);
   arg3 = atoi(argv3);
 
-  switch (cmd) 
+  switch (cmd)
   {
     case GET_BAUDRATE: //'b'
       Serial.println(BAUDRATE);
       break;
-      
+
     case ANALOG_READ:  //'a'
       Serial.println(analogRead(arg1));
       break;
-      
+
     case DIGITAL_READ: //'d'
       Serial.println(digitalRead(arg1));
       break;
-      
+
     case ANALOG_WRITE:
       analogWrite(arg1, arg2);
       Serial.println("OK");
       break;
-      
+
     case DIGITAL_WRITE:
       if (arg2 == 0)
       {
@@ -116,19 +116,19 @@ int runCommand()
       }
       Serial.println("OK");
       break;
-      
+
     case PIN_MODE:
-      if (arg2 == 0) 
+      if (arg2 == 0)
       {
         pinMode(arg1, INPUT);
       }
-      else if (arg2 == 1) 
+      else if (arg2 == 1)
       {
         pinMode(arg1, OUTPUT);
       }
       Serial.println("OK");
       break;
-            
+
     case READ_ENCODERS:  //'e'
       Serial.print(readEncoder(A_WHEEL));
       Serial.print(" ");
@@ -136,22 +136,22 @@ int runCommand()
       Serial.print(" ");
       Serial.println(readEncoder(C_WHEEL));
       break;
-      
+
     case RESET_ENCODERS:  //'r'
       resetEncoders();
       resetPID();
       Serial.println("OK");
       break;
-      
+
     case MOTOR_SPEEDS: //'m'
       lastMotorCommand = millis();  /* Reset the auto stop timer */
-      if (arg1 == 0 && arg2 == 0 && arg3 == 0) 
+      if (arg1 == 0 && arg2 == 0 && arg3 == 0)
       {
         setMotorSpeeds(0, 0, 0);
         resetPID();
         moving = 0;
       }
-      else 
+      else
       {
         Serial.print(arg1);
         Serial.print(" ");
@@ -165,9 +165,9 @@ int runCommand()
       CWheelPID.TargetTicksPerFrame = arg3;
       Serial.println("OK");
       break;
-      
+
     case UPDATE_PID: //'u'
-      while ((str = strtok_r(p, ":", &p)) != '\0') 
+      while ((str = strtok_r(p, ":", &p)) != '\0')
       {
         pid_args[i] = atoi(str);
         i++;
@@ -176,19 +176,19 @@ int runCommand()
       AWheel_Kd = pid_args[1];
       AWheel_Ki = pid_args[2];
       AWheel_Ko = pid_args[3];
-      
-      BWheel_Kp = pid_args[0];
-      BWheel_Kd = pid_args[1];
-      BWheel_Ki = pid_args[2];
-      BWheel_Ko = pid_args[3];
-      
-      CWheel_Kp = pid_args[0];
-      CWheel_Kd = pid_args[1];
-      CWheel_Ki = pid_args[2];
-      CWheel_Ko = pid_args[3];
+
+      BWheel_Kp = pid_args[4];
+      BWheel_Kd = pid_args[5];
+      BWheel_Ki = pid_args[6];
+      BWheel_Ko = pid_args[7];
+
+      CWheel_Kp = pid_args[8];
+      CWheel_Kd = pid_args[9];
+      CWheel_Ki = pid_args[10];
+      CWheel_Ko = pid_args[11];
       Serial.println("OK");
       break;
-      
+
     case READ_PIDIN:
       Serial.print(readPidIn(A_WHEEL));
       Serial.print(" ");
@@ -204,7 +204,7 @@ int runCommand()
       Serial.print(" ");
       Serial.println(readPidOut(C_WHEEL));
       break;
-    
+
     default:
       Serial.println("Invalid Command");
       break;
@@ -212,10 +212,10 @@ int runCommand()
 }
 
 /* Setup function--runs once at startup. */
-void setup() 
+void setup()
 {
   Serial.begin(BAUDRATE);
-  
+
   initEncoders();
   initMotorController();
   resetPID();
@@ -230,18 +230,18 @@ void loop()
   while (Serial.available() > 0)
   {
     chr = Serial.read();  //Read the next character
-    
+
     if (chr == 13)  //Terminate a command with a CR
     {
-      if (arg == 1) 
+      if (arg == 1)
       {
         argv1[index] = NULL;
       }
-      else if (arg == 2) 
+      else if (arg == 2)
       {
         argv2[index] = NULL;
       }
-      else if (arg == 3) 
+      else if (arg == 3)
       {
         argv3[index] = NULL;
       }
@@ -251,17 +251,17 @@ void loop()
     else if (chr == ' ') // Use spaces to delimit parts of the command
     {
       // Step through the arguments
-      if (arg == 0) 
+      if (arg == 0)
       {
         arg = 1;
       }
-      else if (arg == 1)  
+      else if (arg == 1)
       {
         argv1[index] = NULL;
         arg   = 2;
         index = 0;
       }
-      else if (arg == 2)  
+      else if (arg == 2)
       {
         argv2[index] = NULL;
         arg   = 3;
@@ -269,24 +269,24 @@ void loop()
       }
       continue;
     }
-    else
+    else // process single-letter
     {
-      if (arg == 0) 
+      if (arg == 0)
       {
-        cmd = chr; // The first arg is the single-letter command
+        cmd = chr;  //The first arg is the single-letter command
       }
-      else if (arg == 1) 
+      else if (arg == 1)
       {
         // Subsequent arguments can be more than one character
         argv1[index] = chr;
         index++;
       }
-      else if (arg == 2) 
+      else if (arg == 2)
       {
         argv2[index] = chr;
         index++;
       }
-      else if (arg == 3) 
+      else if (arg == 3)
       {
         argv3[index] = chr;
         index++;
