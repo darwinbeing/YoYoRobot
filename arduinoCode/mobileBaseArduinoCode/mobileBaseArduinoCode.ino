@@ -1,12 +1,11 @@
 /*********************************************************************
     ROSArduinoBridge
 
-    A set of simple serial commands to control a differential drive
+    A set of simple serial commands to control a omniWheel drive
     robot and receive back sensor and odometry data. Default
-    configuration assumes use of an Arduino Mega + Pololu motor
-    controller shield + Robogaia Mega Encoder shield.  Edit the
-    readEncoder() and setMotorSpeed() wrapper functions if using
-    different motor controller or encoder method.
+    configuration assumes use of an Arduino Mega + four motor driver
+    board.  Edit the readEncoder() and setMotorSpeed() wrapper
+    functions if using different motor controller or encoder method.
  *********************************************************************/
 /* Serial port baud rate */
 #define BAUDRATE     57600
@@ -129,11 +128,7 @@ int runCommand()
       }
       Serial.println("OK");
       break;
-      
-    case PING:
-      Serial.println(Ping(arg1));
-      break;
-      
+            
     case READ_ENCODERS:  //'e'
       Serial.print(readEncoder(A_WHEEL));
       Serial.print(" ");

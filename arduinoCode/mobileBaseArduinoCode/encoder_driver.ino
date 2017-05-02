@@ -1,6 +1,8 @@
-/* *************************************************************
+/**************************************************************
    Encoder definitions
-
+   Encoder A: connect interrupt 0, 1--[pin 2, 3];
+   Encoder B: connect interrupt 2, 3--[pin 21, 20];
+   Encoder C: connect intterupt 4, 5--[pin 19, 18]
    ************************************************************ */
 
 static volatile long A_enc_pos = 0L;
