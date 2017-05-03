@@ -78,12 +78,13 @@ void resetPID()
 }
 
 /* PID routine to compute the next A motor commands */
-void doAWheelPID(SetPointInfo * p)
+void doAWheelPID(SetPointInfo *p)
 {
   long Perror = 0;
   long output = 0;
   int input   = 0;
 
+  p->Encoder = readEncoder(A_WHEEL);
   input  = p->Encoder - p->PrevEnc;
   Perror = p->TargetTicksPerFrame - input;
 
@@ -125,6 +126,7 @@ void doBWheelPID(SetPointInfo * p)
   long output = 0;
   int input   = 0;
 
+  p->Encoder = readEncoder(B_WHEEL);
   input  = p->Encoder - p->PrevEnc;
   Perror = p->TargetTicksPerFrame - input;
 
@@ -166,6 +168,7 @@ void doCWheelPID(SetPointInfo * p)
   long output = 0;
   int input   = 0;
 
+  p->Encoder = readEncoder(C_WHEEL);
   input  = p->Encoder - p->PrevEnc;
   Perror = p->TargetTicksPerFrame - input;
 
@@ -203,11 +206,6 @@ void doCWheelPID(SetPointInfo * p)
 /* Read the encoder values and call the PID routine */
 void updatePID()
 {
-  /* Read the encoders */
-  AWheelPID.Encoder = readEncoder(A_WHEEL);
-  BWheelPID.Encoder = readEncoder(B_WHEEL);
-  CWheelPID.Encoder = readEncoder(C_WHEEL);
-
   if (!moving) /* If we're not moving, resetPID() there is nothing more to do */
   {
     /*
@@ -247,7 +245,7 @@ long readPidIn(int wheel)
   {
     pidin = CWheelPID.PrevInput;
   }
-  
+
   return pidin;
 }
 
