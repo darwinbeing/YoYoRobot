@@ -153,11 +153,6 @@ int runCommand()
       }
       else
       {
-        Serial.print(arg1);
-        Serial.print(" ");
-        Serial.print(arg2);
-        Serial.print(" ");
-        Serial.println(arg3);
         moving = 1;
       }
       AWheelPID.TargetTicksPerFrame = arg1;
