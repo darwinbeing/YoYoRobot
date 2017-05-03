@@ -62,8 +62,8 @@ class BaseController:
         pid_params['CWheel_Ko'] = rospy.get_param("~CWheel_Ko", 50)
         self.accel_limit = rospy.get_param('~accel_limit', 0.1)
         self.motors_reversed = rospy.get_param("~motors_reversed", False)
-        self.linear_scale_correction = rospy.get_param("~linear_scale_correction", 0.998)
-        self.angular_scale_correction = rospy.get_param("~angular_scale_correction", 0.9872)
+        self.linear_scale_correction = rospy.get_param("~linear_scale_correction", 1.0)
+        self.angular_scale_correction = rospy.get_param("~angular_scale_correction", 1.0)
 
         # Set up PID parameters and check for missing values
         self.setup_pid(pid_params)
@@ -117,9 +117,6 @@ class BaseController:
             self.AEncoderPub = rospy.Publisher('Aencoder', Int32, queue_size=10)
             self.BEncoderPub = rospy.Publisher('Bencoder', Int32, queue_size=10)
             self.CEncoderPub = rospy.Publisher('Cencoder', Int32, queue_size=10)
-            self.APidoutPub  = rospy.Publisher('APidOut',  Int32, queue_size=10)
-            self.BPidoutPub  = rospy.Publisher('BPidOut',  Int32, queue_size=10)
-            self.CPidoutPub  = rospy.Publisher('CPidOut',  Int32, queue_size=10)
             self.AVelPub     = rospy.Publisher('Avel',     Int32, queue_size=10)
             self.BVelPub     = rospy.Publisher('Bvel',     Int32, queue_size=10)
             self.CVelPub     = rospy.Publisher('Cvel',     Int32, queue_size=10)
@@ -165,7 +162,6 @@ class BaseController:
 
     def poll(self):
         if self.debugPID:
-            #rospy.loginfo("start debug PID Parameter:")
             try:
                 A_pidin, B_pidin, C_pidin = self.arduino.get_pidin()
                 self.AEncoderPub.publish(A_pidin)
@@ -176,18 +172,6 @@ class BaseController:
                 #rospy.loginfo("C_pidin: " + str(C_pidin))
             except:
                 rospy.logerr("getpidin exception count:")
-                return
-
-            try:
-                A_pidout, B_pidout, C_pidout = self.arduino.get_pidout()
-                self.APidoutPub.publish(A_pidout)
-                self.BPidoutPub.publish(B_pidout)
-                self.CPidoutPub.publish(C_pidout)
-                rospy.logdebug("A_pidout: " + str(A_pidout))
-                rospy.logdebug("B_pidout: " + str(B_pidout))
-                rospy.logdebug("C_pidout: " + str(C_pidout))
-            except:
-                rospy.logerr("getpidout exception count: ")
                 return
 
         now = rospy.Time.now()
@@ -308,7 +292,6 @@ class BaseController:
             self.t_next = now + self.t_delta
 
     def stop(self):
-        #print "stop drive flag:" + str(self.stopped)
         self.stopped = True
         self.arduino.drive(0, 0, 0)
 
@@ -316,9 +299,9 @@ class BaseController:
         # Handle velocity-based movement requests
         self.last_cmd_vel = rospy.Time.now()
 
-        x  = req.linear.x       # m/s
-        y  = req.linear.y       # m/s
-        th = req.angular.z      # rad/s
+        x  = req.linear.x      # m/s
+        y  = req.linear.y      # m/s
+        th = req.angular.z     # rad/s
 
         tmpX = 0.866025404     # sqrt(3)/2.0
         tmpY = 0.5             # 1/2
@@ -329,6 +312,5 @@ class BaseController:
         self.v_des_AWheel = int(vA * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_BWheel = int(vB * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_CWheel = int(vC * self.ticks_per_meter / self.arduino.PID_RATE)
-        rospy.loginfo("A wheel:"+str(self.v_des_AWheel) +",B wheel:"+str(self.v_des_BWheel) +",C wheel:" + str(self.v_des_CWheel))
 
 

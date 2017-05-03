@@ -38,7 +38,7 @@ int BWheel_Kd = 30;
 int BWheel_Ki = 0;
 int BWheel_Ko = 50;
 
-int CWheel_Kp = 36;
+int CWheel_Kp = 15;
 int CWheel_Kd = 26;
 int CWheel_Ki = 0;
 int CWheel_Ko = 50;
@@ -251,22 +251,4 @@ long readPidIn(int wheel)
   return pidin;
 }
 
-long readPidOut(int wheel)
-{
-  long pidout = 0;
-  if (wheel == A_WHEEL)
-  {
-    pidout = AWheelPID.output;
-  }
-  else if (wheel == B_WHEEL)
-  {
-    pidout = BWheelPID.output;
-  }
-  else
-  {
-    pidout = CWheelPID.output;
-  }
-  
-  return pidout;
-}
 

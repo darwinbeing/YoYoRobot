@@ -197,14 +197,6 @@ int runCommand()
       Serial.println(readPidIn(C_WHEEL));
       break;
 
-    case READ_PIDOUT:
-      Serial.print(readPidOut(A_WHEEL));
-      Serial.print(" ");
-      Serial.print(readPidOut(B_WHEEL));
-      Serial.print(" ");
-      Serial.println(readPidOut(C_WHEEL));
-      break;
-
     default:
       Serial.println("Invalid Command");
       break;
@@ -301,10 +293,11 @@ void loop()
     nextPID += PID_INTERVAL;
   }
 
-  // Check to see if we have exceeded the auto-stop interval
+  //Check to see if we have exceeded the auto-stop interval
   if ((millis() - lastMotorCommand) > AUTO_STOP_INTERVAL)
   {
     setMotorSpeeds(0, 0, 0);
+    resetPID();
     moving = 0;
   }
 }

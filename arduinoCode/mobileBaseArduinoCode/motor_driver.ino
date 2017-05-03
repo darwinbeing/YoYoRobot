@@ -4,7 +4,7 @@
 //three motors control pin define
 static const int A_IN1  = 23;
 static const int A_IN2  = 25;
-static const int A_PWM  = 11;    //A wheel pwm pin
+static const int A_PWM  = 11;   //A wheel pwm pin
 
 static const int B_IN1  = 27;
 static const int B_IN2  = 29;
@@ -73,7 +73,6 @@ void setMotorSpeed(int wheel, int spd)
       direcA = FORWARDS;
       digitalWrite(A_IN1, LOW);
       digitalWrite(A_IN2, HIGH);
-      
       analogWrite(A_PWM, spd);
     }
     else if (spd < 0) 

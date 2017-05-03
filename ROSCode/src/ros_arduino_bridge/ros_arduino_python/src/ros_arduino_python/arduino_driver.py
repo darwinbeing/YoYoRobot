@@ -346,15 +346,6 @@ class Arduino:
         else:
             return values
 
-    def get_pidout(self):
-        values = self.execute_array('f')
-        if len(values) != 3:
-            print "pidout was not 3"
-            raise SerialException
-            return None
-        else:
-            return values
-
 #    def get_maxez1(self, triggerPin, outputPin):
 #        ''' The maxez1 command queries a Maxbotix MaxSonar-EZ1 sonar
 #            sensor connected to the General Purpose I/O lines, triggerPin, and

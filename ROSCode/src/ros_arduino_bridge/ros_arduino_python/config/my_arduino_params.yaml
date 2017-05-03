@@ -18,15 +18,15 @@ base_frame: base_footprint
 
 # === Robot drivetrain parameters
 wheel_diameter: 0.058
-wheel_track: 0.144    # L value
-encoder_resolution: 13 #ASLong 555B motors
-gear_reduction: 98
+wheel_track: 0.175    # L value
+encoder_resolution: 13 #DFRobot 12V DC 146rpm encoder motors
+gear_reduction: 51
 motors_reversed: True
-linear_scale_correction: 0.998
-angular_scale_correction: 0.9872
+linear_scale_correction: 1
+angular_scale_correction: 1
 
 # === PID parameters
-accel_limit: 1.0
+accel_limit: 0.1
 
 AWheel_Kp: 18
 AWheel_Kd: 32
@@ -58,12 +58,12 @@ CWheel_Ko: 50
 sensors: {
   #motor_current_left:   {pin: 0, type: PololuMotorCurrent, rate: 5},
   #motor_current_right:  {pin: 1, type: PololuMotorCurrent, rate: 5},
-  antiDropIR_front_center: {pin: 41, type: Digital, rate: 5, direction: input},
-  antiDropIR_left_center: {pin: 42, type: Digital, rate: 5, direction: input},
-  antiDropIR_right_center: {pin: 43, type: Digital, rate: 5, direction: input},
-  antiHitIR_front_center: {pin: 6, type: IR2Y0A02, rate: 5, direction: input},
-  antiHitIR_left_center: {pin: 7, type: IR2Y0A02, rate: 5, direction: input},
-  antiHitIR_right_center: {pin: 8, type: IR2Y0A02, rate: 5, direction: input},
+  #antiDropIR_front_center: {pin: 41, type: Digital, rate: 5, direction: input},
+  #antiDropIR_left_center: {pin: 42, type: Digital, rate: 5, direction: input},
+  #antiDropIR_right_center: {pin: 43, type: Digital, rate: 5, direction: input},
+  #antiHitIR_front_center: {pin: 6, type: IR2Y0A02, rate: 5, direction: input},
+  #antiHitIR_left_center: {pin: 7, type: IR2Y0A02, rate: 5, direction: input},
+  #antiHitIR_right_center: {pin: 8, type: IR2Y0A02, rate: 5, direction: input},
   #sonar_front_center:   {pin: 5, type: Ping, rate: 5},
   arduino_led:          {pin: 13, type: Digital, rate: 1, direction: output}
 }
