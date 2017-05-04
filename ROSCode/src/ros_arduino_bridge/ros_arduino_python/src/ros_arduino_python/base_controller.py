@@ -246,7 +246,6 @@ class BaseController:
             odom.twist.twist.linear.x = vx
             odom.twist.twist.linear.y = vy
             odom.twist.twist.angular.z = vth
-
             self.odomPub.publish(odom)
 
             if now > (self.last_cmd_vel + rospy.Duration(self.timeout)):

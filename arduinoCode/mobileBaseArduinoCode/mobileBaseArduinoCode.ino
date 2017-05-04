@@ -35,7 +35,7 @@ unsigned long nextPID = PID_INTERVAL;
 
 /* Stop the robot if it hasn't received a movement command
   in this number of milliseconds */
-#define  AUTO_STOP_INTERVAL  200
+#define  AUTO_STOP_INTERVAL  100
 long lastMotorCommand = AUTO_STOP_INTERVAL;
 
 /* Variable initialization */
