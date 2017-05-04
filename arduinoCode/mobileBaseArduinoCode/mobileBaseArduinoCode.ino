@@ -30,6 +30,8 @@
 /* Convert the rate into an interval */
 const int PID_INTERVAL = 1000 / PID_RATE;
 
+static const int PowerContro_PIN = 52; //Mosfet Power controller sensor pin
+
 /* Track the next time we make a PID calculation */
 unsigned long nextPID = PID_INTERVAL;
 
@@ -105,7 +107,7 @@ int runCommand()
       Serial.println("OK");
       break;
 
-    case DIGITAL_WRITE:
+    case DIGITAL_WRITE: //'w'
       if (arg2 == 0)
       {
         digitalWrite(arg1, LOW);
@@ -198,11 +200,17 @@ int runCommand()
   }
 }
 
+void initSensorsPin()
+{
+  pinMode(PowerContro_PIN, OUTPUT);
+}
+
 /* Setup function--runs once at startup. */
 void setup()
 {
   Serial.begin(BAUDRATE);
 
+  initSensorsPin();
   initEncoders();
   initMotorController();
   resetPID();
