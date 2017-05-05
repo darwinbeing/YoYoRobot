@@ -23,6 +23,7 @@
 #include "encoder_driver.h"
 /* PID parameters and functions */
 #include "omniWheel_controller.h"
+#include "sound.h"
 
 /* Run the PID loop at 30 times per second */
 #define PID_RATE     30     // Hz
@@ -186,6 +187,18 @@ int runCommand()
       Serial.println("OK");
       break;
 
+    case SOUND_BEEP: //'f'
+      if (arg1 == BASE_POWERON_BEEP)
+      {
+        basePowerOnBeep();
+      }
+      else if (arg1 == BASE_POWEROFF_BEEP)
+      {
+        basePowerOffBeep();
+      }
+      Serial.println("OK");
+      break;
+
     case READ_PIDIN:
       Serial.print(readPidIn(A_WHEEL));
       Serial.print(" ");
@@ -203,6 +216,7 @@ int runCommand()
 void initSensorsPin()
 {
   pinMode(PowerContro_PIN, OUTPUT);
+  digitalWrite(PowerContro_PIN, HIGH); //default enable Power controller
 }
 
 /* Setup function--runs once at startup. */
@@ -211,6 +225,7 @@ void setup()
   Serial.begin(BAUDRATE);
 
   initSensorsPin();
+  initSoundPin();
   initEncoders();
   initMotorController();
   resetPID();
