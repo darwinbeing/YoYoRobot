@@ -65,7 +65,7 @@ long arg3 = 0;
 /* Clear the current command parameters */
 void resetCommand()
 {
-  cmd = NULL;
+  cmd = '\0';
   memset(argv1, 0, sizeof(argv1));
   memset(argv2, 0, sizeof(argv2));
   memset(argv3, 0, sizeof(argv3));
@@ -184,6 +184,31 @@ int runCommand()
       CWheel_Kd = pid_args[9];
       CWheel_Ki = pid_args[10];
       CWheel_Ko = pid_args[11];
+
+//      Serial.print(AWheel_Kp);
+//      Serial.print(" ");
+//      Serial.print(AWheel_Kd);
+//      Serial.print(" ");
+//      Serial.print(AWheel_Ki);
+//      Serial.print(" ");
+//      Serial.print(AWheel_Ko);
+//      Serial.print(" ");
+//      Serial.print(BWheel_Kp);
+//      Serial.print(" ");
+//      Serial.print(BWheel_Kd);
+//      Serial.print(" ");
+//      Serial.print(BWheel_Ki);
+//      Serial.print(" ");
+//      Serial.print(BWheel_Ko);
+//      Serial.print(" ");
+//      Serial.print(CWheel_Kp);
+//      Serial.print(" ");
+//      Serial.print(CWheel_Kd);
+//      Serial.print(" ");
+//      Serial.print(CWheel_Ki);
+//      Serial.print(" ");
+//      Serial.print(CWheel_Ko);
+
       Serial.println("OK");
       break;
 
@@ -211,6 +236,8 @@ int runCommand()
       Serial.println("Invalid Command");
       break;
   }
+
+  return 0;
 }
 
 void initSensorsPin()
@@ -245,15 +272,15 @@ void loop()
     {
       if (arg == 1)
       {
-        argv1[index] = NULL;
+        argv1[index] = '\0';
       }
       else if (arg == 2)
       {
-        argv2[index] = NULL;
+        argv2[index] = '\0';
       }
       else if (arg == 3)
       {
-        argv3[index] = NULL;
+        argv3[index] = '\0';
       }
       runCommand();
       resetCommand();
@@ -267,13 +294,13 @@ void loop()
       }
       else if (arg == 1)
       {
-        argv1[index] = NULL;
+        argv1[index] = '\0';
         arg   = 2;
         index = 0;
       }
       else if (arg == 2)
       {
-        argv2[index] = NULL;
+        argv2[index] = '\0';
         arg   = 3;
         index = 0;
       }
