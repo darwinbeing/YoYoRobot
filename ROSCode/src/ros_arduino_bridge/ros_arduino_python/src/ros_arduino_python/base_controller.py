@@ -39,7 +39,7 @@ class BaseController:
         self.rate = float(rospy.get_param("~base_controller_rate", 10))
         self.timeout = rospy.get_param("~base_controller_timeout", 1.0)
         self.stopped = False
-        self.debugPID = True
+        self.debugPID = False
 
         pid_params = dict()
         pid_params['wheel_diameter'] = rospy.get_param("~wheel_diameter", "")
@@ -60,7 +60,9 @@ class BaseController:
         pid_params['CWheel_Kd'] = rospy.get_param("~CWheel_Kd", 32)
         pid_params['CWheel_Ki'] = rospy.get_param("~CWheel_Ki", 0)
         pid_params['CWheel_Ko'] = rospy.get_param("~CWheel_Ko", 50)
+
         self.accel_limit = rospy.get_param('~accel_limit', 0.1)
+        self.debugPID = rospy.get_param('~debugPID', False)
         self.motors_reversed = rospy.get_param("~motors_reversed", False)
         self.linear_scale_correction = rospy.get_param("~linear_scale_correction", 1.0)
         self.angular_scale_correction = rospy.get_param("~angular_scale_correction", 1.0)
@@ -167,9 +169,6 @@ class BaseController:
                 self.AEncoderPub.publish(A_pidin)
                 self.BEncoderPub.publish(B_pidin)
                 self.CEncoderPub.publish(C_pidin)
-                #rospy.loginfo("A_pidin: " + str(A_pidin))
-                #rospy.loginfo("B_pidin: " + str(B_pidin))
-                #rospy.loginfo("C_pidin: " + str(C_pidin))
             except:
                 rospy.logerr("getpidin exception count:")
                 return
