@@ -25,7 +25,7 @@ from ros_arduino_python.arduino_sensors import *
 from ros_arduino_msgs.srv import *
 from ros_arduino_python.base_controller import BaseController
 from geometry_msgs.msg import Twist
-import os, time
+import os
 import thread
 from serial.serialutil import SerialException
 
@@ -123,6 +123,8 @@ class ArduinoROS():
                 sensor = PhidgetsVoltage(self.controller, name, params['pin'], params['rate'], self.base_frame)
             elif params['type'] == 'PhidgetsCurrent':
                 sensor = PhidgetsCurrent(self.controller, name, params['pin'], params['rate'], self.base_frame)
+            elif params['type'] == 'MotorTotalCurrent':
+                sensor = MotorTotalCurrent(self.controller, name, params['pin'], params['rate'], self.base_frame)
 
 #                if params['type'] == "MaxEZ1":
 #                    self.sensors[len(self.sensors)]['trigger_pin'] = params['trigger_pin']
