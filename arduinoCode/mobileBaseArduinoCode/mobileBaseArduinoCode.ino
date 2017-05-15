@@ -38,7 +38,7 @@ unsigned long nextPID = PID_INTERVAL;
 
 /* Stop the robot if it hasn't received a movement command
   in this number of milliseconds */
-#define  AUTO_STOP_INTERVAL  100
+#define  AUTO_STOP_INTERVAL  200
 long lastMotorCommand = AUTO_STOP_INTERVAL;
 
 /* Variable initialization */
@@ -224,6 +224,10 @@ int runCommand()
       Serial.println("OK");
       break;
 
+    case CURRENT_READ:  // 'g'-get current sensor value
+      Serial.println(readDCCurrent(arg1));
+      break;
+      
     case READ_PIDIN:
       Serial.print(readPidIn(A_WHEEL));
       Serial.print(" ");
@@ -253,6 +257,7 @@ void setup()
 
   initSensorsPin();
   initSoundPin();
+  initCurrentSensor();
   initEncoders();
   initMotorController();
   resetPID();
