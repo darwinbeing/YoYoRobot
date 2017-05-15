@@ -57,7 +57,6 @@ CWheel_Ko: 50
 
 
 sensors: {
-  motors_current:   {pin: 0, type: MotorTotalCurrent, rate: 1},
   #motor_current_left:   {pin: 0, type: PololuMotorCurrent, rate: 5},
   #motor_current_right:  {pin: 1, type: PololuMotorCurrent, rate: 5},
   #antiDropIR_front_center: {pin: 41, type: Digital, rate: 5, direction: input},
@@ -67,6 +66,7 @@ sensors: {
   #antiHitIR_left_center: {pin: 7, type: IR2Y0A02, rate: 5, direction: input},
   #antiHitIR_right_center: {pin: 8, type: IR2Y0A02, rate: 5, direction: input},
   #sonar_front_center:   {pin: 5, type: Ping, rate: 5},
-  #arduino_led:          {pin: 13, type: Digital, rate: 1, direction: output}
+  arduino_led:          {pin: 13, type: Digital, rate: 1, direction: output},
+  motors_current:       {pin: 0, type: MotorTotalCurrent, rate: 2}
 }
 

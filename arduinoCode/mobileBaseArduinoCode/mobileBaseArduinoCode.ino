@@ -185,30 +185,6 @@ int runCommand()
       CWheel_Ki = pid_args[10];
       CWheel_Ko = pid_args[11];
 
-//      Serial.print(AWheel_Kp);
-//      Serial.print(" ");
-//      Serial.print(AWheel_Kd);
-//      Serial.print(" ");
-//      Serial.print(AWheel_Ki);
-//      Serial.print(" ");
-//      Serial.print(AWheel_Ko);
-//      Serial.print(" ");
-//      Serial.print(BWheel_Kp);
-//      Serial.print(" ");
-//      Serial.print(BWheel_Kd);
-//      Serial.print(" ");
-//      Serial.print(BWheel_Ki);
-//      Serial.print(" ");
-//      Serial.print(BWheel_Ko);
-//      Serial.print(" ");
-//      Serial.print(CWheel_Kp);
-//      Serial.print(" ");
-//      Serial.print(CWheel_Kd);
-//      Serial.print(" ");
-//      Serial.print(CWheel_Ki);
-//      Serial.print(" ");
-//      Serial.print(CWheel_Ko);
-
       Serial.println("OK");
       break;
 
@@ -222,10 +198,6 @@ int runCommand()
         basePowerOffBeep();
       }
       Serial.println("OK");
-      break;
-
-    case CURRENT_READ:  // 'g'-get current sensor value
-      Serial.println(readDCCurrent(arg1));
       break;
       
     case READ_PIDIN:

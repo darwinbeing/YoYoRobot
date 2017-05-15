@@ -19,7 +19,6 @@
 #define ANALOG_WRITE   'x'
 #define READ_PIDIN     'i'
 #define SOUND_BEEP     'f'
-#define CURRENT_READ   'g'
 
 #define A_WHEEL         1
 #define B_WHEEL         2

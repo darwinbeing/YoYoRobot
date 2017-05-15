@@ -1,5 +1,4 @@
 /* Functions for various sensor types */
-const int mVperAmp = 100; //use 185 for 5A Module, and 66 for 30A Module
 
 float Vref  = 0; //read your Vcc voltage,typical voltage should be 5000mV(5.0V)
 
@@ -34,33 +33,6 @@ long Ping(int pin) {
   range = microsecondsToCm(duration);
 
   return (range);
-}
-
-/*read DC Current Value*/
-float readDCCurrent(int Pin)
-{
-    int analogValueArray[31];
-    for(int index=0;index<31;index++)
-    {
-      analogValueArray[index] = analogRead(Pin);
-    }
-    int i,j,tempValue;
-    for (j = 0; j < 31 - 1; j ++)
-    {
-        for (i = 0; i < 31 - 1 - j; i ++)
-        {
-            if (analogValueArray[i] > analogValueArray[i + 1])
-            {
-                tempValue = analogValueArray[i];
-                analogValueArray[i] = analogValueArray[i + 1];
-                analogValueArray[i + 1] = tempValue;
-            }
-        }
-    }
-    float medianValue = analogValueArray[(31 - 1) / 2];
-    float DCCurrentValue = (medianValue / 1024.0 * Vref - Vref / 2.0) / mVperAmp;  //Sensitivity:100mV/A, 0A @ Vcc/2
-    
-    return DCCurrentValue;
 }
 
 /*read reference voltage*/

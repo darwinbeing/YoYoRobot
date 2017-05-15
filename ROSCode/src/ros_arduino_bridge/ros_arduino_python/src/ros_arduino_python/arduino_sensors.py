@@ -264,18 +264,24 @@ class PololuMotorCurrent(AnalogFloatSensor):
         milliamps = self.controller.analog_read(self.pin) * 34
         return milliamps / 1000.0
 
-class MotorTotalCurrent(Sensor):
+class MotorTotalCurrent(AnalogFloatSensor):
     def __init__(self, *args, **kwargs):
         super(MotorTotalCurrent, self).__init__(*args, **kwargs)
-        self.message_type = MessageType.FLOAT
-
-        self.msg = Float()
-        self.msg.header.frame_id = self.frame_id
-
-        self.pub = rospy.Publisher("~sensor/" + self.name, Float, queue_size=5)
 
     def read_value(self):
-        return self.controller.get_current(self.pin)
+        mylist=[]
+        for i in range(31):
+            value = self.controller.analog_read(self.pin)
+            mylist.append(value)
+
+        for m in range(30):
+            for n in range(0, 30-m):
+                if mylist[n] > mylist[n+1]:
+                    mylist[n], mylist[n+1] = mylist[n+1], mylist[n]
+
+        midVal = mylist[15]
+        result = (midVal/1024.0*4523.00 - 4523.00/2)/100
+        return result
 
 class PhidgetsVoltage(AnalogFloatSensor):
     def __init__(self, *args, **kwargs):
