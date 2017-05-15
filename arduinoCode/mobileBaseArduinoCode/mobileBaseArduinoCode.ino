@@ -53,9 +53,9 @@ char chr;
 char cmd;
 
 // Character arrays to hold the first,second,third arguments
-char argv1[32];
-char argv2[32];
-char argv3[32];
+char argv1[48];
+char argv2[48];
+char argv3[48];
 
 // The arguments converted to integers
 long arg1 = 0;
