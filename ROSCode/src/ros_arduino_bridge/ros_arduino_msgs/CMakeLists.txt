@@ -9,7 +9,6 @@ add_message_files(FILES
                   ArduinoConstants.msg
                   Digital.msg
                   SensorState.msg
-                  Float.msg
                  )
 
 add_service_files(FILES
@@ -20,6 +19,7 @@ add_service_files(FILES
                   ServoWrite.srv
                   AnalogWrite.srv
                   AnalogRead.srv
+                  AlarmWrite.srv
                  )
 
 generate_messages(   

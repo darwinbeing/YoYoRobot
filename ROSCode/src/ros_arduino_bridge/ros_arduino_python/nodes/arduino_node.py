@@ -84,11 +84,15 @@ class ArduinoROS():
         # A service to read the value of an analog sensor
         rospy.Service('~analog_read', AnalogRead, self.AnalogReadHandler)
 
+        # A service to set alarm sensor
+        rospy.Service('~alarm_write', AlarmWrite, self.AlarmWriteHandler)
+
         # Initialize the controlller
         self.controller = Arduino(self.port, self.baud, self.timeout)
 
         # Make the connection
         self.controller.connect()
+        self.controller.alarm_write(1)
 
         rospy.loginfo("Connected to Arduino on port " + self.port + " at " + str(self.baud) + " baud")
 
@@ -190,6 +194,10 @@ class ArduinoROS():
         value = self.controller.analog_read(req.pin)
         return AnalogReadResponse(value)
 
+    def AlarmWriteHandler(self, req):
+        self.controller.alarm_write(req.value)
+        return AlarmWriteResponse()
+
     def shutdown(self):
         rospy.loginfo("Shutting down Arduino Node...")
 
@@ -197,7 +205,7 @@ class ArduinoROS():
         try:
             rospy.loginfo("Stopping the robot...")
             self.cmd_vel_pub.Publish(Twist())
-            rospy.sleep(2)
+            rospy.sleep(2000)
         except:
             pass
 

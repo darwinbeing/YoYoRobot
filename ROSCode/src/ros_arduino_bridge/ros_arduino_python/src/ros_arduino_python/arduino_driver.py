@@ -29,9 +29,6 @@ import sys, traceback
 from serial.serialutil import SerialException
 from serial import Serial
 
-SERVO_MAX = 180
-SERVO_MIN = 0
-
 class Arduino:
     ''' Configuration Parameters
     '''
@@ -90,6 +87,7 @@ class Arduino:
     def close(self):
         ''' Close the serial port.
         '''
+        self.port.write('f 0\r')
         self.port.close()
 
     def send(self, cmd):
@@ -325,8 +323,8 @@ class Arduino:
         '''
         return self.execute('p %d' %pin);
 
-    def get_current(self, pin):
-        return self.execute('g %d' %pin)
+    def alarm_write(self, value):
+        return self.execute_ack('f %d' %value)
 
     def get_pidin(self):
         values = self.execute_array('i')

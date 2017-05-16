@@ -154,7 +154,6 @@ class DigitalSensor(Sensor):
         self.value = not self.value
         return self.controller.digital_write(self.pin, self.value)
 
-
 class RangeSensor(Sensor):
     def __init__(self, *args, **kwargs):
         super(RangeSensor, self).__init__(*args, **kwargs)
@@ -169,13 +168,11 @@ class RangeSensor(Sensor):
     def read_value(self):
         self.msg.header.stamp = rospy.Time.now()
 
-
 class SonarSensor(RangeSensor):
     def __init__(self, *args, **kwargs):
         super(SonarSensor, self).__init__(*args, **kwargs)
 
         self.msg.radiation_type = Range.ULTRASOUND
-
 
 class IRSensor(RangeSensor):
     def __init__(self, *args, **kwargs):
