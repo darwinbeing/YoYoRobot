@@ -224,6 +224,28 @@ class IR2Y0A02(IRSensor):
 
         return dist
 
+class GP2Y0A41(IRSensor):
+    def __init__(self, *args, **kwargs):
+        super(GP2Y0A41, self).__init__(*args, **kwargs)
+
+        self.msg.field_of_view = 0.001
+        self.msg.min_range = 0.04
+        self.msg.max_range = 0.30
+
+    def read_value(self):
+        value = self.controller.analog_read(self.pin)
+
+        if value < 16:
+            value = 16
+
+        dist = 20.76/(value - 11.0)
+
+        # If we get a spurious reading, set it to the max_range
+        if dist > self.msg.max_range: dist = self.msg.max_range
+        if dist < self.msg.min_range: dist = self.msg.min_range
+
+        return dist
+
 class GP2D12(IRSensor):
     def __init__(self, *args, **kwargs):
         super(GP2D12, self).__init__(*args, **kwargs)

@@ -117,6 +117,8 @@ class ArduinoROS():
                 sensor = GP2D12(self.controller, name, params['pin'], params['rate'], self.base_frame)
             elif params['type'] == "IR2Y0A02":
                 sensor = IR2Y0A02(self.controller, name, params['pin'], params['rate'], self.base_frame)
+            elif params['type'] == "GP2Y0A41":
+                sensor = GP2Y0A41(self.controller, name, params['pin'], params['rate'], self.base_frame)
             elif params['type'] == 'Digital':
                 sensor = DigitalSensor(self.controller, name, params['pin'], params['rate'], self.base_frame, direction=params['direction'])
             elif params['type'] == 'Analog':
