@@ -21,7 +21,7 @@
 
 import roslib; roslib.load_manifest('ros_arduino_python')
 import rospy
-import decimal
+from decimal import Decimal
 from sensor_msgs.msg import Range
 from ros_arduino_msgs.msg import *
 
@@ -244,7 +244,7 @@ class GP2Y0A41(IRSensor):
         if dist > self.msg.max_range: dist = self.msg.max_range
         if dist < self.msg.min_range: dist = self.msg.min_range
 
-        return dist
+        return Decimal(dist).quantize(Decimal('0.000'))
 
 class GP2D12(IRSensor):
     def __init__(self, *args, **kwargs):
@@ -300,7 +300,7 @@ class MotorTotalCurrent(AnalogFloatSensor):
 
         midVal = mylist[15]
         result = (midVal/1024.0*4523.00 - 4523.00/2)/100
-        return result
+        return Decimal(result).quantize(Decimal('0.00'))
 
 class PhidgetsVoltage(AnalogFloatSensor):
     def __init__(self, *args, **kwargs):
