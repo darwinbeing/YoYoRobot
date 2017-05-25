@@ -27,20 +27,20 @@ linear_scale_correction: 1
 angular_scale_correction: 1
 
 # === PID parameters
-accel_limit: 0.1
+accel_limit: 0.05
 
-AWheel_Kp: 5
-AWheel_Kd: 13
+AWheel_Kp: 10
+AWheel_Kd: 17
 AWheel_Ki: 0
 AWheel_Ko: 50
 
-BWheel_Kp: 12
-BWheel_Kd: 15
+BWheel_Kp: 10
+BWheel_Kd: 17
 BWheel_Ki: 0
 BWheel_Ko: 50
 
-CWheel_Kp: 17
-CWheel_Kd: 12
+CWheel_Kp: 11
+CWheel_Kd: 17
 CWheel_Ki: 0
 CWheel_Ko: 50
 

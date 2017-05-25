@@ -249,4 +249,21 @@ long readPidIn(int wheel)
   return pidin;
 }
 
+long readPidOut(int wheel)
+{
+  long pidout = 0;
+  if (wheel == A_WHEEL)
+  {
+    pidout = AWheelPID.output;
+  }
+  else if (wheel == B_WHEEL)
+  {
+    pidout = BWheelPID.output;
+  }
+  else
+  {
+    pidout = CWheelPID.output;
+  }
 
+  return pidout;
+}

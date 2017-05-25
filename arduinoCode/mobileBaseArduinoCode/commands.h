@@ -18,6 +18,7 @@
 #define DIGITAL_WRITE  'w'
 #define ANALOG_WRITE   'x'
 #define READ_PIDIN     'i'
+#define READ_PIDOUT    'o'
 #define SOUND_BEEP     'f'
 
 #define A_WHEEL         1

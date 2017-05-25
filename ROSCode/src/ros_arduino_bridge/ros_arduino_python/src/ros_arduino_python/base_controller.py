@@ -46,22 +46,22 @@ class BaseController:
         pid_params['wheel_track'] = rospy.get_param("~wheel_track", "")
         pid_params['encoder_resolution'] = rospy.get_param("~encoder_resolution", "")
         pid_params['gear_reduction'] = rospy.get_param("~gear_reduction", 1.0)
-        pid_params['AWheel_Kp'] = rospy.get_param("~AWheel_Kp", 18)
-        pid_params['AWheel_Kd'] = rospy.get_param("~AWheel_Kd", 32)
+        pid_params['AWheel_Kp'] = rospy.get_param("~AWheel_Kp", 10)
+        pid_params['AWheel_Kd'] = rospy.get_param("~AWheel_Kd", 12)
         pid_params['AWheel_Ki'] = rospy.get_param("~AWheel_Ki", 0)
         pid_params['AWheel_Ko'] = rospy.get_param("~AWheel_Ko", 50)
 
-        pid_params['BWheel_Kp'] = rospy.get_param("~BWheel_Kp", 18)
-        pid_params['BWheel_Kd'] = rospy.get_param("~BWheel_Kd", 32)
+        pid_params['BWheel_Kp'] = rospy.get_param("~BWheel_Kp", 10)
+        pid_params['BWheel_Kd'] = rospy.get_param("~BWheel_Kd", 12)
         pid_params['BWheel_Ki'] = rospy.get_param("~BWheel_Ki", 0)
         pid_params['BWheel_Ko'] = rospy.get_param("~BWheel_Ko", 50)
 
-        pid_params['CWheel_Kp'] = rospy.get_param("~CWheel_Kp", 18)
-        pid_params['CWheel_Kd'] = rospy.get_param("~CWheel_Kd", 32)
+        pid_params['CWheel_Kp'] = rospy.get_param("~CWheel_Kp", 10)
+        pid_params['CWheel_Kd'] = rospy.get_param("~CWheel_Kd", 12)
         pid_params['CWheel_Ki'] = rospy.get_param("~CWheel_Ki", 0)
         pid_params['CWheel_Ko'] = rospy.get_param("~CWheel_Ko", 50)
 
-        self.accel_limit = rospy.get_param('~accel_limit', 0.1)
+        self.accel_limit = rospy.get_param('~accel_limit', 0.05)
         self.debugPID = rospy.get_param('~debugPID', False)
         self.motors_reversed = rospy.get_param("~motors_reversed", False)
         self.linear_scale_correction = rospy.get_param("~linear_scale_correction", 1.0)
@@ -119,6 +119,9 @@ class BaseController:
             self.AEncoderPub = rospy.Publisher('Aencoder', Int32, queue_size=10)
             self.BEncoderPub = rospy.Publisher('Bencoder', Int32, queue_size=10)
             self.CEncoderPub = rospy.Publisher('Cencoder', Int32, queue_size=10)
+            self.APidoutPub  = rospy.Publisher('Apidout',  Int32, queue_size=10)
+            self.BPidoutPub  = rospy.Publisher('Bpidout',  Int32, queue_size=10)
+            self.CPidoutPub  = rospy.Publisher('Cpidout',  Int32, queue_size=10)
             self.AVelPub     = rospy.Publisher('Avel',     Int32, queue_size=10)
             self.BVelPub     = rospy.Publisher('Bvel',     Int32, queue_size=10)
             self.CVelPub     = rospy.Publisher('Cvel',     Int32, queue_size=10)
@@ -171,6 +174,15 @@ class BaseController:
                 self.CEncoderPub.publish(C_pidin)
             except:
                 rospy.logerr("getpidin exception count:")
+                return
+
+            try:
+                A_pidout, B_pidout, C_pidout = self.arduino.get_pidout()
+                self.APidoutPub.publish(A_pidout)
+                self.BPidoutPub.publish(B_pidout)
+                self.CPidoutPub.publish(C_pidout)
+            except:
+                rospy.logerr("getpidout exception count")
                 return
 
         now = rospy.Time.now()
