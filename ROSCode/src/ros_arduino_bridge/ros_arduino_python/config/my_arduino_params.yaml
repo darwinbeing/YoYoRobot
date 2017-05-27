@@ -5,13 +5,15 @@
 
 port: /dev/ttyACM0
 baud: 57600
-timeout: 0.1
+timeout: 0.4
 
 rate: 50
 sensorstate_rate: 10
 
 use_base_controller: True
-base_controller_rate: 20
+base_controller_rate: 20 
+base_controller_timeout: 0.5
+
 
 # For a robot that uses base_footprint, change base_frame to base_footprint
 base_frame: base_footprint
@@ -22,25 +24,25 @@ wheel_track: 0.175    # L value
 encoder_resolution: 13 #DFRobot 12V DC 146rpm encoder motors
 gear_reduction: 51
 motors_reversed: True
-debugPID: False
+debugPID: True 
 linear_scale_correction: 1
 angular_scale_correction: 1
 
 # === PID parameters
 accel_limit: 0.05
 
-AWheel_Kp: 10
-AWheel_Kd: 17
+AWheel_Kp: 11
+AWheel_Kd: 14
 AWheel_Ki: 0
 AWheel_Ko: 50
 
-BWheel_Kp: 10
-BWheel_Kd: 17
+BWheel_Kp: 11
+BWheel_Kd: 14
 BWheel_Ki: 0
 BWheel_Ko: 50
 
 CWheel_Kp: 11
-CWheel_Kd: 17
+CWheel_Kd: 15
 CWheel_Ki: 0
 CWheel_Ko: 50
 

@@ -36,8 +36,8 @@ class BaseController:
         self.arduino = arduino
         self.name = name
         self.base_frame = base_frame
-        self.rate = float(rospy.get_param("~base_controller_rate", 10))
-        self.timeout = rospy.get_param("~base_controller_timeout", 1.0)
+        self.rate = float(rospy.get_param("~base_controller_rate", 20))
+        self.timeout = rospy.get_param("~base_controller_timeout", 0.3)
         self.stopped = False
         self.debugPID = False
 
@@ -201,7 +201,7 @@ class BaseController:
             dt = dt.to_sec()
 
             # Calculate odometry
-            if self.enc_A == None and self.enc_B == None:
+            if self.enc_A == None and self.enc_B == None and self.enc_C == None:
                 d_A = 0
                 d_B = 0
                 d_C = 0
@@ -322,5 +322,6 @@ class BaseController:
         self.v_des_AWheel = int(vA * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_BWheel = int(vB * self.ticks_per_meter / self.arduino.PID_RATE)
         self.v_des_CWheel = int(vC * self.ticks_per_meter / self.arduino.PID_RATE)
+        #rospy.loginfo("A v_des:"+str(self.v_des_AWheel)+",B v_des:"+str(self.v_des_BWheel)+",C v_des:" + str(self.v_des_CWheel))
 
 
