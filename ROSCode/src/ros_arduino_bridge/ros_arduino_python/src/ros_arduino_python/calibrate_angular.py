@@ -5,14 +5,25 @@ from geometry_msgs.msg import Twist, Quaternion
 from nav_msgs.msg import Odometry
 import tf
 from math import radians, copysign
-from transform_utils import quat_to_angle, normalize_angle
 import PyKDL
 from math import pi
+
+def quat_to_angle(quat):
+    rot = PyKDL.Rotation.Quaternion(quat.x, quat.y, quat.z, quat.w)
+    return rot.GetRPY()[2]
+
+def normalize_angle(angle):
+    res = angle
+    while res > pi:
+        res -= 2.0 * pi
+    while res < -pi:
+        res += 2.0 * pi
+    return res
 
 class CalibrateAngular():
     def __init__(self):
         #give the node a name
-        rospy.init_node('calibrate_angualar', anonymous=False)
+        rospy.init_node('calibrate_angular', anonymous=False)
 
         #set rospy to execute a shutdown function when terminate
         rospy.on_shutdown(self.shutdown)
@@ -22,11 +33,11 @@ class CalibrateAngular():
         r = rospy.Rate(self.rate)
 
         #the test angle is 360 degree
-        self.test_angle = 2*pi
+        self.test_angle = radians(360.0)
 
-        self.speed = 0.1
+        self.speed = 1
         self.tolerance = 0.1
-        self.odom_angular_scale_coreection = 1
+        self.odom_angular_scale_coreection = 1.0
         self.start_test = True
 
         #Publisher to control the robot's speed
@@ -39,7 +50,7 @@ class CalibrateAngular():
         self.odom_frame = rospy.get_param('~odom_frame', '/odom')
 
         #initialize the tf listener
-        self.tf_listener = tf.TransformListenre()
+        self.tf_listener = tf.TransformListener()
 
         #Give tf some time to fille its buffer
         rospy.sleep(2)
@@ -59,7 +70,7 @@ class CalibrateAngular():
                 turn_angle = 0
                 self.test_angle *= reverse
                 error = self.test_angle - turn_angle
-                rospy.loginfo("errir: "+str(error))
+                rospy.loginfo("error: "+str(error))
 
                 # Alternate directions between tests
                 reverse = -reverse
@@ -68,6 +79,7 @@ class CalibrateAngular():
                     if rospy.is_shutdown():
                         return
                     rospy.loginfo("*************************** ")
+
                     # Rotate the robot to reduce the error
                     move_cmd = Twist()
                     move_cmd.angular.z = copysign(self.speed, error)
@@ -84,7 +96,7 @@ class CalibrateAngular():
                     rospy.loginfo("delta_angle: "+str(delta_angle))
 
                     # Add to our total angle so far
-                    turn_angle += abs(delta_angle)
+                    turn_angle += delta_angle
                     rospy.loginfo("turn_angle: "+str(turn_angle))
 
                     # Compute the new error
@@ -100,7 +112,6 @@ class CalibrateAngular():
                 # Update the status flag
                 self.start_test = False
                 params = {'start_test': False}
-                dyn_client.update_configuration(params)
 
             rospy.sleep(0.5)
 
@@ -124,12 +135,10 @@ class CalibrateAngular():
         rospy.loginfo("Stopping the robot...")
         self.cmd_vel.publish(Twist())
         rospy.sleep(1)
+
 if __name__ == '__main__':
     try:
         CalibrateAngular()
     except:
         rospy.loginfo("Calibration terminated.")
-
-
-
 
