@@ -18,8 +18,8 @@ class CalibrateLinear():
         r = rospy.Rate(self.rate)
 
         #set the distance to travel
-        self.test_distance = 1.0
-        self.speed = 1.0
+        self.test_distance = 1.5
+        self.speed = 0.2
         self.tolerance = 0.01
         self.odom_linear_scale_correction = 1.0
         self.start_test = True
@@ -85,8 +85,8 @@ class CalibrateLinear():
             self.cmd_vel.publish(move_cmd)
             r.sleep()
 
-         #stop the robot
-         self.cmd_vel.publish(Twist())
+            #stop the robot
+            self.cmd_vel.publish(Twist())
 
     def get_position(self):
         #get the current transform between the odom and base frames

@@ -24,7 +24,7 @@ wheel_track: 0.175    # L value
 encoder_resolution: 13 #DFRobot 12V DC 146rpm encoder motors
 gear_reduction: 51
 motors_reversed: True
-debugPID: True 
+debugPID: False
 linear_scale_correction: 1
 angular_scale_correction: 1
 
@@ -32,17 +32,17 @@ angular_scale_correction: 1
 accel_limit: 0.05
 
 AWheel_Kp: 11
-AWheel_Kd: 14
+AWheel_Kd: 15
 AWheel_Ki: 0
 AWheel_Ko: 50
 
 BWheel_Kp: 11
-BWheel_Kd: 14
+BWheel_Kd: 15
 BWheel_Ki: 0
 BWheel_Ko: 50
 
 CWheel_Kp: 11
-CWheel_Kd: 15
+CWheel_Kd: 16
 CWheel_Ki: 0
 CWheel_Ko: 50
 

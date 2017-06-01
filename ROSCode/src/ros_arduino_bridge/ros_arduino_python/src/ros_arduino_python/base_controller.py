@@ -24,7 +24,7 @@ import roslib; roslib.load_manifest('ros_arduino_python')
 import rospy
 import os
 
-from math import sin, cos, pi
+from math import sin, cos, pi, sqrt
 from geometry_msgs.msg import Quaternion, Twist
 from nav_msgs.msg import Odometry
 from tf.broadcaster import TransformBroadcaster
@@ -46,18 +46,18 @@ class BaseController:
         pid_params['wheel_track'] = rospy.get_param("~wheel_track", "")
         pid_params['encoder_resolution'] = rospy.get_param("~encoder_resolution", "")
         pid_params['gear_reduction'] = rospy.get_param("~gear_reduction", 1.0)
-        pid_params['AWheel_Kp'] = rospy.get_param("~AWheel_Kp", 10)
-        pid_params['AWheel_Kd'] = rospy.get_param("~AWheel_Kd", 12)
+        pid_params['AWheel_Kp'] = rospy.get_param("~AWheel_Kp", 11)
+        pid_params['AWheel_Kd'] = rospy.get_param("~AWheel_Kd", 15)
         pid_params['AWheel_Ki'] = rospy.get_param("~AWheel_Ki", 0)
         pid_params['AWheel_Ko'] = rospy.get_param("~AWheel_Ko", 50)
 
-        pid_params['BWheel_Kp'] = rospy.get_param("~BWheel_Kp", 10)
-        pid_params['BWheel_Kd'] = rospy.get_param("~BWheel_Kd", 12)
+        pid_params['BWheel_Kp'] = rospy.get_param("~BWheel_Kp", 11)
+        pid_params['BWheel_Kd'] = rospy.get_param("~BWheel_Kd", 15)
         pid_params['BWheel_Ki'] = rospy.get_param("~BWheel_Ki", 0)
         pid_params['BWheel_Ko'] = rospy.get_param("~BWheel_Ko", 50)
 
-        pid_params['CWheel_Kp'] = rospy.get_param("~CWheel_Kp", 10)
-        pid_params['CWheel_Kd'] = rospy.get_param("~CWheel_Kd", 12)
+        pid_params['CWheel_Kp'] = rospy.get_param("~CWheel_Kp", 11)
+        pid_params['CWheel_Kd'] = rospy.get_param("~CWheel_Kd", 16)
         pid_params['CWheel_Ki'] = rospy.get_param("~CWheel_Ki", 0)
         pid_params['CWheel_Ko'] = rospy.get_param("~CWheel_Ko", 50)
 
@@ -218,9 +218,8 @@ class BaseController:
             vb = d_B/dt;
             vc = d_C/dt;
 
-            tmpVx = 0.577350269    #sqrt(3)/3
-            vx = tmpVx*(va - vb)
-            vy = (va + vb - 2*vc)/3
+            vx = sqrt(3)*(va - vb)/3.0
+            vy = (va + vb - 2*vc)/3.0
             vth = (va + vb + vc)/(3*self.wheel_track)
 
             delta_x = (vx*cos(self.th) - vy*sin(self.th))*dt
@@ -313,7 +312,7 @@ class BaseController:
         y  = req.linear.y      # m/s
         th = req.angular.z     # rad/s
 
-        tmpX = 0.866025404     # sqrt(3)/2.0
+        tmpX = sqrt(3)/2.0
         tmpY = 0.5             # 1/2
         vA = ( tmpX*x + tmpY*y + self.wheel_track*th)
         vB = (-tmpX*x + tmpY*y + self.wheel_track*th)
