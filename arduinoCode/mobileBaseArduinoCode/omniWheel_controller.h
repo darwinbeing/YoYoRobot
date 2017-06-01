@@ -28,18 +28,18 @@ SetPointInfo;
 SetPointInfo AWheelPID, BWheelPID, CWheelPID;
 
 /*default PID Parameters */
-int AWheel_Kp = 15;
-int AWheel_Kd = 28;
+int AWheel_Kp = 11;
+int AWheel_Kd = 15;
 int AWheel_Ki = 0;
 int AWheel_Ko = 50;
 
-int BWheel_Kp = 17;
-int BWheel_Kd = 30;
+int BWheel_Kp = 11;
+int BWheel_Kd = 15;
 int BWheel_Ki = 0;
 int BWheel_Ko = 50;
 
-int CWheel_Kp = 15;
-int CWheel_Kd = 26;
+int CWheel_Kp = 11;
+int CWheel_Kd = 16;
 int CWheel_Ki = 0;
 int CWheel_Ko = 50;
 
