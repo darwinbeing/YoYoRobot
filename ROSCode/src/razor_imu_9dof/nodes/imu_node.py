@@ -256,6 +256,7 @@ while not rospy.is_shutdown():
     imuMsg.orientation.w = q[3]
     imuMsg.header.stamp= rospy.Time.now()
     imuMsg.header.frame_id = 'base_imu_link'
+    #imuMsg.header.frame_id = 'base_footprint'
     imuMsg.header.seq = seq
     seq = seq + 1
     pub.publish(imuMsg)
