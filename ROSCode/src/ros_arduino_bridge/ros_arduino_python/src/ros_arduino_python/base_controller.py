@@ -253,22 +253,22 @@ class BaseController:
             odom.pose.pose.position.y = self.y
             odom.pose.pose.position.z = 0
             odom.pose.pose.orientation = quaternion
-            odom.pose.covariance = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+            odom.pose.covariance = [1e-9, 0, 0, 0, 0, 0,
+                                    0, 1e-3, 1e-9, 0, 0, 0,
+                                    0, 0, 1e6, 0, 0, 0,
+                                    0, 0, 0, 1e6, 0, 0,
+                                    0, 0, 0, 0, 1e6, 0,
+                                    0, 0, 0, 0, 0, 1e-9]
 
             odom.twist.twist.linear.x = vx
             odom.twist.twist.linear.y = vy
             odom.twist.twist.angular.z = vth
-            odom.twist.covariance = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
-                                    1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+            odom.twist.covariance = [1e-9, 0, 0, 0, 0, 0,
+                                    0, 1e-3, 1e-9, 0, 0, 0,
+                                    0, 0, 1e6, 0, 0, 0,
+                                    0, 0, 0, 1e6, 0, 0,
+                                    0, 0, 0, 0, 1e6, 0,
+                                    0, 0, 0, 0, 0, 1e-9]
 
             self.odomPub.publish(odom)
 
