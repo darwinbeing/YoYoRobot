@@ -1,0 +1,12 @@
+[Unit]
+Description=mobilebase startup
+
+[Service]
+Restart=always
+RestartSec=30
+ExecStart=/usr/sbin/mobilebase-start 
+ExecStop=/usr/sbin/mobilebase-stop
+ExecRestart=/usr/sbin/mobilebase-restart
+
+[Install]
+WantedBy=multi-user.target

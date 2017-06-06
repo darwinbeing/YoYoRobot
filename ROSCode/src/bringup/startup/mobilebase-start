@@ -1,0 +1,21 @@
+#!/bin/bash
+
+log_file=/tmp/mobilebase-upstart.log
+DATE=`date`
+
+source /opt/ros/indigo/setup.bash
+source /home/pi/YoYoRobot/ROSCode/devel/setup.bash
+
+interface=wlan0
+echo "$DATE: mobilebase-start on interface $interface" >> $log_file
+
+export ROS_IP=`ifconfig $interface | grep -o 'inet addr:[^ ]*' | cut -d: -f2`
+
+echo "$DATE: mobilebase-start setting ROS_IP=$ROS_IP" >> $log_file
+
+if [ "$ROS_IP" = "" ]; then
+    echo "$DATE: mobilebase-start can't run with empty ROS_IP." >> $log_file
+    exit 1
+fi
+
+roslaunch  mobilebase_bringup  minimal.launch

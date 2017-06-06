@@ -1,0 +1,9 @@
+#!/bin/bash
+
+log_file=/tmp/mobilebase-upstart.log
+DATE=`date`
+echo "$DATE: mobilebase-stop" >> $log_file
+
+/usr/sbin/mobilebase-stop
+sleep 2
+/usr/sbin/mobilebase-start 
