@@ -9,7 +9,8 @@ source /home/pi/YoYoRobot/ROSCode/devel/setup.bash
 interface=wlan0
 echo "$DATE: mobilebase-start on interface $interface" >> $log_file
 
-export ROS_IP=`ifconfig $interface | grep -o 'inet addr:[^ ]*' | cut -d: -f2`
+#export ROS_IP=`ifconfig $interface | grep -o 'inet addr:[^ ]*' | cut -d: -f2`
+export ROS_IP=192.168.20.206
 
 echo "$DATE: mobilebase-start setting ROS_IP=$ROS_IP" >> $log_file
 
@@ -18,4 +19,4 @@ if [ "$ROS_IP" = "" ]; then
     exit 1
 fi
 
-roslaunch  mobilebase_bringup  minimal.launch
+roslaunch bringup minimal.launch
