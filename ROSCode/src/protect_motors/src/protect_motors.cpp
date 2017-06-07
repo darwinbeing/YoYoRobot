@@ -7,7 +7,7 @@ ros::ServiceClient client;
 void currentCallback(const ros_arduino_msgs::AnalogFloat::ConstPtr& msg)
 {
     ROS_INFO("Get motors current:[%f]", msg->value);
-    if(msg->value > 1.0)
+    if(msg->value > 2.0)
     {
         ROS_ERROR("detect motor current dangerous!");
         ros_arduino_msgs::DigitalWrite srv;
