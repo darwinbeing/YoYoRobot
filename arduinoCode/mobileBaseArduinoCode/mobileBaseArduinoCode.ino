@@ -32,6 +32,7 @@
 const int PID_INTERVAL = 1000 / PID_RATE;
 
 static const int PowerContro_PIN = 52; //Mosfet Power controller sensor pin
+static const int alarm_powerControl_pin = 51;  //alarm light powercontrol sensor pin
 
 /* Track the next time we make a PID calculation */
 unsigned long nextPID = PID_INTERVAL;
@@ -228,6 +229,9 @@ void initSensorsPin()
 {
   pinMode(PowerContro_PIN, OUTPUT);
   digitalWrite(PowerContro_PIN, HIGH); //default enable Power controller
+
+  pinMode(alarm_powerControl_pin, OUTPUT);
+  digitalWrite(alarm_powerControl_pin, LOW); //default disable alarm light
 }
 
 /* Setup function--runs once at startup. */
