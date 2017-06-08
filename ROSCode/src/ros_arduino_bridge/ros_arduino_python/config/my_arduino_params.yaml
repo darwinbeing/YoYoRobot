@@ -11,8 +11,8 @@ rate: 50
 sensorstate_rate: 10
 
 use_base_controller: True
-base_controller_rate: 20 
-base_controller_timeout: 0.5
+base_controller_rate: 10
+base_controller_timeout: 0.6
 
 
 # For a robot that uses base_footprint, change base_frame to base_footprint
