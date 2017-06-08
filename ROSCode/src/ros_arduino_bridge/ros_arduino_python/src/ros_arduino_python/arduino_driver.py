@@ -18,7 +18,6 @@
     GNU General Public License for more details at:
 
     http://www.gnu.org/licenses/gpl.html
-
 """
 
 import thread
