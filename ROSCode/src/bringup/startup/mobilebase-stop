@@ -7,6 +7,8 @@ echo "$DATE: mobilebase-stop" >> $log_file
 source /opt/ros/indigo/setup.bash
 source /home/pi/YoYoRobot/ROSCode/devel/setup.bash
 
+rosservice call /stop_motor
+
 for i in $( rosnode list ); do
     rosnode kill $i;
 done

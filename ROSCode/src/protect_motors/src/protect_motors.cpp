@@ -15,7 +15,7 @@ static int delayTime = 0;
 
 void currentCallback(const ros_arduino_msgs::AnalogFloat::ConstPtr& msg)
 {
-    ROS_INFO("Get motors current:[%f]", msg->value);
+    //ROS_INFO("Get motors current:[%f]", msg->value);
     if(msg->value > maxCurrent)
     {
         alarmFlag = POWERON;
