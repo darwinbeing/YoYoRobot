@@ -19,7 +19,7 @@
     </node>
     
     <!-- transform between /odom and /odom_combined -->
-    <!--<node pkg="tf" type="static_transform_publisher" name="odom_combined_broadcaster" args="0 0 0 0 0 0 /odom /odom_combined 100" />-->
+    <node pkg="tf" type="static_transform_publisher" name="odom_combined_broadcaster" args="0 0 0 0 0 0 /odom /odom_combined 100" />
 
     <!-- startup protect motor node -->
     <node pkg="protect_motors" type="protect_motors_node" name="protect_motor_node" output="screen">
