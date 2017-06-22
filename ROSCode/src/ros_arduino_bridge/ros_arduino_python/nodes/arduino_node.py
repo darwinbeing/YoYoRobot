@@ -87,12 +87,16 @@ class ArduinoROS():
         # A service to set alarm sensor
         rospy.Service('~alarm_write', AlarmWrite, self.AlarmWriteHandler)
 
+        # A service to set light show
+        rospy.Service('~light_show', LightShow, self.LightShowHandler)
+
         # Initialize the controlller
         self.controller = Arduino(self.port, self.baud, self.timeout)
 
         # Make the connection
         self.controller.connect()
         self.controller.alarm_write(1)
+        self.controller.light_show(1)
 
         rospy.loginfo("Connected to Arduino on port " + self.port + " at " + str(self.baud) + " baud")
 
@@ -199,6 +203,10 @@ class ArduinoROS():
     def AlarmWriteHandler(self, req):
         self.controller.alarm_write(req.value)
         return AlarmWriteResponse()
+
+    def LightShowHandler(self, req):
+        self.controller.light_show(req.value)
+        return LightShowResponse()
 
     def shutdown(self):
         rospy.loginfo("Shutting down Arduino Node...")

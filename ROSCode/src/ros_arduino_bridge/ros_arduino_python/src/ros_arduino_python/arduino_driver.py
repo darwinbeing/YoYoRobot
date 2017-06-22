@@ -325,6 +325,9 @@ class Arduino:
     def alarm_write(self, value):
         return self.execute_ack('f %d' %value)
 
+    def light_show(self, value):
+        return self.execute_ack('l %d' %value)
+
     def get_pidin(self):
         values = self.execute_array('i')
         if len(values) != 3:

@@ -20,6 +20,7 @@ add_service_files(FILES
                   AnalogWrite.srv
                   AnalogRead.srv
                   AlarmWrite.srv
+                  LightShow.srv
                  )
 
 generate_messages(   
