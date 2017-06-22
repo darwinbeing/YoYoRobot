@@ -7,6 +7,8 @@
     board.  Edit the readEncoder() and setMotorSpeed() wrapper
     functions if using different motor controller or encoder method.
  *********************************************************************/
+#include <Thread.h>
+
 /* Serial port baud rate */
 #define BAUDRATE     57600
 
@@ -24,6 +26,7 @@
 /* PID parameters and functions */
 #include "omniWheel_controller.h"
 #include "sound.h"
+#include "ledStrip_control.h"
 
 /* Run the PID loop at 30 times per second */
 #define PID_RATE     30     // Hz
@@ -62,6 +65,8 @@ char argv3[48];
 long arg1 = 0;
 long arg2 = 0;
 long arg3 = 0;
+
+Thread myThread = Thread();
 
 /* Clear the current command parameters */
 void resetCommand()
@@ -208,13 +213,56 @@ int runCommand()
       Serial.print(" ");
       Serial.println(readPidIn(C_WHEEL));
       break;
-      
+
     case READ_PIDOUT:
       Serial.print(readPidOut(A_WHEEL));
       Serial.print(" ");
       Serial.print(readPidOut(B_WHEEL));
       Serial.print(" ");
       Serial.println(readPidOut(C_WHEEL));
+      break;
+
+    case LED_CONTROL: //'l'
+      if (arg1 == STOPSTART_LIGHT)
+      {
+        myThread.enabled = false;
+      }
+      else if (arg1 == ENABLESTART_LIGHT)
+      {
+        myThread.enabled = true;
+      }
+      else if (arg1 == RAINBOW_LIGHT)
+      {
+        startShow(RAINBOW_LIGHT);
+      }
+      else if (arg1 == WIPE_RED)
+      {
+        startShow(WIPE_RED);
+      }
+      else if (arg1 == WIPE_GREEN)
+      {
+        startShow(WIPE_GREEN);
+      }
+      else if (arg1 == WIPE_BLUE)
+      {
+        startShow(WIPE_BLUE);
+      }
+      else if (arg1 == CHASE_WHITE)
+      {
+        startShow(CHASE_WHITE);
+      }
+      else if (arg1 == CHASE_RED)
+      {
+        startShow(CHASE_RED);
+      }
+      else if (arg1 == CHASE_GREEN)
+      {
+        startShow(CHASE_GREEN);
+      }
+      else if (arg1 == CHASE_BLUE)
+      {
+        startShow(CHASE_BLUE);
+      }
       break;
 
     default:
@@ -234,6 +282,12 @@ void initSensorsPin()
   digitalWrite(alarm_powerControl_pin, LOW); //default disable alarm light
 }
 
+// callback for myThread
+void lightCallback()
+{
+  startShow(RAINBOW_LIGHT);
+}
+
 /* Setup function--runs once at startup. */
 void setup()
 {
@@ -244,7 +298,10 @@ void setup()
   initCurrentSensor();
   initEncoders();
   initMotorController();
+  initLedStrip();
   resetPID();
+  myThread.onRun(lightCallback);
+  myThread.setInterval(1000);
 }
 
 /* Enter the main loop.  Read and parse input from the serial port
@@ -318,7 +375,7 @@ void loop()
         index++;
       }
     }
-  }
+  }//end while()
 
   //run a PID calculation at the appropriate intervals
   if (millis() > nextPID)
@@ -334,6 +391,9 @@ void loop()
     resetPID();
     moving = 0;
   }
+
+  if (myThread.shouldRun())
+    myThread.run();
 }
 
 

@@ -20,6 +20,7 @@
 #define READ_PIDIN     'i'
 #define READ_PIDOUT    'o'
 #define SOUND_BEEP     'f'
+#define LED_CONTROL    'l'
 
 #define A_WHEEL         1
 #define B_WHEEL         2
