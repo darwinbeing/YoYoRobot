@@ -231,6 +231,10 @@ int runCommand()
       {
         myThread.enabled = true;
       }
+      else if (arg1 == CLEAR_LIGHT)
+      {
+        clearLEDs();
+      }
       else if (arg1 == RAINBOW_LIGHT)
       {
         startShow(RAINBOW_LIGHT);
@@ -263,6 +267,7 @@ int runCommand()
       {
         startShow(CHASE_BLUE);
       }
+      Serial.println("OK");
       break;
 
     default:
@@ -300,8 +305,9 @@ void setup()
   initMotorController();
   initLedStrip();
   resetPID();
+
   myThread.onRun(lightCallback);
-  myThread.setInterval(1000);
+  myThread.setInterval(1500);
 }
 
 /* Enter the main loop.  Read and parse input from the serial port

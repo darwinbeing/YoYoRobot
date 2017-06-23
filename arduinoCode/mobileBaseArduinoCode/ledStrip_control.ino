@@ -13,25 +13,25 @@ void startShow(int i)
   switch (i)
   {
     case WIPE_RED:
-      colorWipe(leds.Color(255, 0, 0), 30);  // Red
+      colorWipe(leds.Color(255, 0, 0), 20);  // Red
       break;
     case WIPE_GREEN:
-      colorWipe(leds.Color(0, 255, 0), 30);  // Green
+      colorWipe(leds.Color(0, 255, 0), 20);  // Green
       break;
     case WIPE_BLUE:
-      colorWipe(leds.Color(0, 0, 255), 30);  // Blue
+      colorWipe(leds.Color(0, 0, 255), 20);  // Blue
       break;
     case CHASE_WHITE:
-      theaterChase(leds.Color(127, 127, 127), 30); // White
+      theaterChase(leds.Color(127, 127, 127), 20); // White
       break;
     case CHASE_RED:
-      theaterChase(leds.Color(127,   0,   0), 30); // Red
+      theaterChase(leds.Color(127,   0,   0), 20); // Red
       break;
     case CHASE_GREEN:
-      theaterChase(leds.Color(0,   255,   0), 30); // Green
+      theaterChase(leds.Color(0,   255,   0), 20); // Green
       break;
     case CHASE_BLUE:
-      theaterChase(leds.Color(  0,   0, 127), 30); // Blue
+      theaterChase(leds.Color(  0,   0, 127), 20); // Blue
       break;
     case RAINBOW_LIGHT:
       rainbowLight();
