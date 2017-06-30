@@ -2,6 +2,4 @@
    <node name="mobileBase_arduino" pkg="ros_arduino_python" type="arduino_node.py" output="screen">
       <rosparam file="$(find ros_arduino_python)/config/my_arduino_params.yaml" command="load" />
    </node>
- 
-  <node name="footprint2base" pkg="tf" type="static_transform_publisher" args="0 0 0.05 0 0 0 1 /base_footprint /base_link 100" />
 </launch>

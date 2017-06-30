@@ -363,7 +363,7 @@
     <child link="pi_board"/>
   </joint>
 
-  <link name="IMU_sensor" type="fixed">
+  <link name="base_imu_link" type="fixed">
     <visual>
       <geometry>
         <box size="0.025 0.018 0.002"/>
@@ -374,7 +374,7 @@
   <joint name="pi_pannel_to_IMU" type="fixed">
     <origin xyz="0 0 0.002"/>
     <parent link="Pi_pannel"/>
-    <child link="IMU_sensor"/>
+    <child link="base_imu_link"/>
   </joint>
 
   <link name="white_E_pillar" type="fixed">
@@ -431,7 +431,7 @@
     <child link="Lidar_pannel"/>
   </joint>
 
-  <link name="lidar" type="fixed">
+  <link name="laser" type="fixed">
     <visual>
       <geometry>
         <cylinder length="0.042" radius="0.038"/>
@@ -442,7 +442,7 @@
   <joint name="lidar_to_pannel" type="fixed">
     <origin xyz="0 0 0.021"/>
     <parent link="Lidar_pannel"/>
-    <child link="lidar"/>
+    <child link="laser"/>
   </joint>
 
   <link name="blue_A_pillar" type="fixed">
